@@ -13,9 +13,9 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import org.eclipse.microprofile.jwt.Claims;
 import service.UserService;
-import web.model.AccessTokenResponse;
+import web.model.token.AccessTokenResponse;
 import web.model.LoginRequest;
-import web.model.TokenResponse;
+import web.model.token.TokenResponse;
 
 import java.time.Duration;
 import java.time.Instant;
