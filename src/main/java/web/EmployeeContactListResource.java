@@ -13,11 +13,11 @@ import java.util.List;
 
 @Path("/employee-contact-list")
 @DenyAll
-public class EmployeeContactListApi {
+public class EmployeeContactListResource {
 
     private final PersonService personService;
 
-    public EmployeeContactListApi(PersonService personService) {
+    public EmployeeContactListResource(PersonService personService) {
         this.personService = personService;
     }
 
