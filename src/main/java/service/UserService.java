@@ -1,8 +1,7 @@
 package service;
 
-import data.model.ApplicationUser;
+import data.model.User.ApplicationUser;
 import data.repository.UserRepository;
-import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
