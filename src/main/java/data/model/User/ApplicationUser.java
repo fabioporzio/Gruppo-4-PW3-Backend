@@ -1,4 +1,4 @@
-package data.model;
+package data.model.User;
 
 import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.Roles;
