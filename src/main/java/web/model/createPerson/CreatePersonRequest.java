@@ -1,142 +1,53 @@
-package data.model.Person;
+package web.model.createPerson;
 
-import io.quarkus.elytron.security.common.BcryptUtil;
-import jakarta.persistence.*;
+import data.model.Person.DocumentType;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
-@Entity
-@Table(name = "Persone")
-public class Person {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdPersona")
-    private int idPersona;
-
-    @Column(name = "IdRuna")
+public class CreatePersonRequest {
     private Integer idRuna;
-
-    @Column(name = "Nome", length = 100, nullable = false)
     private String nome;
-
-    @Column(name = "Cognome", length = 100, nullable = false)
     private String cognome;
-
-    @Column(name = "Diminutivo", length = 50)
     private String diminutivo;
-
-    @Column(name = "Azienda", length = 100)
     private String azienda;
-
-    @Column(name = "Indirizzo", length = 100, nullable = false)
     private String indirizzo;
-
-    @Column(name = "Citta", length = 100, nullable = false)
     private String citta;
-
-    @Column(name = "Provincia", length = 100, nullable = false)
     private String provincia;
-
-    @Column(name = "Nazione", length = 100, nullable = false)
     private String nazione;
-
-    @Column(name = "Telefono", length = 100)
     private String telefono;
-
-    @Column(name = "Cellulare", length = 100, nullable = false)
     private String cellulare;
-
-    @Column(name = "Fax", length = 100)
     private String fax;
-
-    @Column(name = "pIva", length = 11)
     private String pIva;
-
-    @Column(name = "CF", length = 100, nullable = false, unique = true)
     private String cf;
-
-    @Column(name = "Mail", length = 50, nullable = false, unique = true)
     private String mail;
-
-    @Column(name = "Foto")
     private Boolean foto;
-
-    @Column(name = "DataAssunzione", nullable = false)
     private LocalDate dataAssunzione;
-
-    @Column(name = "Matricola")
     private Integer matricola;
-
-    @Column(name = "IdFiliale")
     private Integer idFiliale;
-
-    @Column(name = "IdMansione")
     private Integer idMansione;
-
-    @Column(name = "IdDeposito")
     private Integer idDeposito;
-
-    @Column(name = "IdRiferimento")
     private Integer idRiferimento;
-
-    @Column(name = "Visitatore")
     private Boolean visitatore;
-
-    @Column(name = "AccessNumber")
     private Integer accessNumber;
-
-    @Column(name = "AccessCount")
     private Integer accessCount;
-
-    @Column(name = "AccessUpdate")
     private Integer accessUpdate;
-
-    @Column(name = "LuogoNascita", length = 100, nullable = false)
     private String luogoNascita;
-
-    @Column(name = "DataNascita", nullable = false)
     private LocalDate dataNascita;
-
-    @Column(name = "DataScadCertificato")
     private LocalDate dataScadCertificato;
-
-    @Column(name = "Preposto")
     private Boolean preposto;
-
-    @Column(name = "Antincendio")
     private Boolean antincendio;
-
-    @Column(name = "PrimoSoccorso")
     private Boolean primoSoccorso;
-
-    @Column(name = "TipoDocumento", length = 20, nullable = false)
-    private String tipoDocumento;
-
-    @Column(name = "NumeroDocumento", length = 100, nullable = false)
+    private DocumentType tipoDocumento;
     private String numeroDocumento;
-
-    @Column(name = "DataScadenzaDoc", nullable = false)
     private LocalDate dataScadenzaDoc;
-
-    @Column(name = "GiorniScadenza", nullable = false)
     private int giorniScadenza;
-
-    @Column(name = "Duvri")
     private Boolean duvri;
-
-    @Column(name = "NumCentriCosto")
     private Integer numCentriCosto;
-
-    @Column(name = "FlagDocPrivacy", nullable = false)
-    private boolean flagDocPrivacy;
-
-    @Column(name = "DataConsegnaDocPrivacy", nullable = false)
+    private Boolean flagDocPrivacy;
     private LocalDate dataConsegnaDocPrivacy;
 
-    public Person() {}
-
-    public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, String tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy) {
+    public CreatePersonRequest(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, DocumentType tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy) {
         this.idRuna = idRuna;
         this.nome = nome;
         this.cognome = cognome;
@@ -172,19 +83,11 @@ public class Person {
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
         this.dataScadenzaDoc = dataScadenzaDoc;
-        this.giorniScadenza = giorniScadenza;
+        this.giorniScadenza = (int) ChronoUnit.DAYS.between(LocalDate.now(), dataScadenzaDoc);
         this.duvri = duvri;
         this.numCentriCosto = numCentriCosto;
         this.flagDocPrivacy = flagDocPrivacy;
         this.dataConsegnaDocPrivacy = dataConsegnaDocPrivacy;
-    }
-
-    public int getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
     }
 
     public Integer getIdRuna() {
@@ -443,11 +346,11 @@ public class Person {
         this.primoSoccorso = primoSoccorso;
     }
 
-    public String getTipoDocumento() {
+    public DocumentType getTipoDocumento() {
         return tipoDocumento;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
+    public void setTipoDocumento(DocumentType tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
@@ -491,11 +394,11 @@ public class Person {
         this.numCentriCosto = numCentriCosto;
     }
 
-    public boolean isFlagDocPrivacy() {
+    public Boolean getFlagDocPrivacy() {
         return flagDocPrivacy;
     }
 
-    public void setFlagDocPrivacy(boolean flagDocPrivacy) {
+    public void setFlagDocPrivacy(Boolean flagDocPrivacy) {
         this.flagDocPrivacy = flagDocPrivacy;
     }
 
