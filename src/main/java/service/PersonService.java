@@ -11,9 +11,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import web.model.createPerson.CreatePersonRequest;
 import web.model.createPerson.CreatePersonResponse;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +133,9 @@ public class PersonService {
                 createPersonRequest.getDuvri(),
                 createPersonRequest.getNumCentriCosto(),
                 createPersonRequest.getFlagDocPrivacy(),
-                createPersonRequest.getDataConsegnaDocPrivacy()
+                createPersonRequest.getDataConsegnaDocPrivacy(),
+                createPersonRequest.getRuolo(),
+                createPersonRequest.getAssegnazioniBadge()
         );
     }
 

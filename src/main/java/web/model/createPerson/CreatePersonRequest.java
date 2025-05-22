@@ -1,9 +1,12 @@
 package web.model.createPerson;
 
+import data.model.BadgeAssignment;
 import data.model.Person.DocumentType;
+import data.model.Ruolo;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 public class CreatePersonRequest {
     private Integer idRuna;
@@ -46,8 +49,10 @@ public class CreatePersonRequest {
     private Integer numCentriCosto;
     private Boolean flagDocPrivacy;
     private LocalDate dataConsegnaDocPrivacy;
+    private Ruolo ruolo;
+    private List<BadgeAssignment> assegnazioniBadge;
 
-    public CreatePersonRequest(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, DocumentType tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy) {
+    public CreatePersonRequest(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, DocumentType tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy, Ruolo ruolo, List<BadgeAssignment> assegnazioniBadge) {
         this.idRuna = idRuna;
         this.nome = nome;
         this.cognome = cognome;
@@ -83,11 +88,13 @@ public class CreatePersonRequest {
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
         this.dataScadenzaDoc = dataScadenzaDoc;
-        this.giorniScadenza = (int) ChronoUnit.DAYS.between(LocalDate.now(), dataScadenzaDoc);
+        this.giorniScadenza =(int)ChronoUnit.DAYS.between(LocalDate.now(),dataScadenzaDoc);
         this.duvri = duvri;
         this.numCentriCosto = numCentriCosto;
         this.flagDocPrivacy = flagDocPrivacy;
         this.dataConsegnaDocPrivacy = dataConsegnaDocPrivacy;
+        this.ruolo = ruolo;
+        this.assegnazioniBadge = assegnazioniBadge;
     }
 
     public Integer getIdRuna() {
@@ -375,7 +382,7 @@ public class CreatePersonRequest {
     }
 
     public void setGiorniScadenza(int giorniScadenza) {
-        this.giorniScadenza = giorniScadenza;
+        this.giorniScadenza = (int) ChronoUnit.DAYS.between(LocalDate.now(), getDataScadenzaDoc());
     }
 
     public Boolean getDuvri() {
@@ -408,5 +415,21 @@ public class CreatePersonRequest {
 
     public void setDataConsegnaDocPrivacy(LocalDate dataConsegnaDocPrivacy) {
         this.dataConsegnaDocPrivacy = dataConsegnaDocPrivacy;
+    }
+
+    public Ruolo getRuolo() {
+        return ruolo;
+    }
+
+    public void setRuolo(Ruolo ruolo) {
+        this.ruolo = ruolo;
+    }
+
+    public List<BadgeAssignment> getAssegnazioniBadge() {
+        return assegnazioniBadge;
+    }
+
+    public void setAssegnazioniBadge(List<BadgeAssignment> assegnazioniBadge) {
+        this.assegnazioniBadge = assegnazioniBadge;
     }
 }
