@@ -19,8 +19,8 @@ public class PersonResource {
         this.personService = personService;
     }
 
-    @Path("/{idPersona}")
     @GET
+    @Path("/{idPersona}")
     @PermitAll
     @Produces(MediaType.APPLICATION_JSON)
     public CreatePersonResponse getPerson(@PathParam("idPersona") int idPersona) {
@@ -33,5 +33,14 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public CreatePersonResponse createPerson(CreatePersonRequest createPersonRequest) {
         return personService.persistPerson(createPersonRequest);
+    }
+
+    @PUT
+    @Path("/{idPersona}")
+    @PermitAll
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updatePerson(@PathParam("idPersona") int idPersona, CreatePersonRequest createPersonRequest) {
+        return personService.updatePerson(idPersona, createPersonRequest);
     }
 }

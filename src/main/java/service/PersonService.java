@@ -3,7 +3,9 @@ package service;
 import data.model.EmployeeContactList;
 import data.model.Person.Person;
 import data.repository.PersonRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
 import web.model.EmployeeContactListResponse;
 import jakarta.enterprise.context.ApplicationScoped;
 import web.model.createPerson.CreatePersonRequest;
@@ -50,6 +52,18 @@ public class PersonService {
         personRepository.persist(person);
 
         return getCreatePersonResponse(person);
+    }
+
+    @Transactional
+    public Response updatePerson(int idPersona, CreatePersonRequest createPersonRequest) {
+        Person person = getPerson(createPersonRequest);
+        boolean updated = personRepository.updatePersonData(person, idPersona);
+
+        if (updated) {
+            return Response.ok(getCreatePersonResponse(person)).build();
+        }
+
+        throw new EntityNotFoundException();
     }
 
     private CreatePersonResponse getCreatePersonResponse(Person person) {
