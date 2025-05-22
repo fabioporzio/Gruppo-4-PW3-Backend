@@ -150,7 +150,7 @@ public class Person {
         this.cellulare = cellulare;
         this.fax = fax;
         this.pIva = pIva;
-        this.cf = cf;
+        this.cf = BcryptUtil.bcryptHash(cf);
         this.mail = mail;
         this.foto = foto;
         this.dataAssunzione = dataAssunzione;
@@ -170,7 +170,7 @@ public class Person {
         this.antincendio = antincendio;
         this.primoSoccorso = primoSoccorso;
         this.tipoDocumento = tipoDocumento;
-        this.numeroDocumento = numeroDocumento;
+        this.numeroDocumento = BcryptUtil.bcryptHash(numeroDocumento);
         this.dataScadenzaDoc = dataScadenzaDoc;
         this.giorniScadenza = giorniScadenza;
         this.duvri = duvri;
