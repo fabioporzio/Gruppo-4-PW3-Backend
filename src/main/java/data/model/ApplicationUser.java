@@ -4,37 +4,47 @@ import io.quarkus.security.jpa.Password;
 import io.quarkus.security.jpa.Roles;
 import io.quarkus.security.jpa.UserDefinition;
 import io.quarkus.security.jpa.Username;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "Utenti")
 @UserDefinition
 public class ApplicationUser {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    public int id;
+
     @Column(name = "Email", length = 100)
     @Username
     private String email;
 
-    @Column(name = "Password", nullable = false)
+    @Column(name = "Password", length = 100, nullable = false)
     @Password
     private String password;
 
-    @Column(name = "Role", length = 100, nullable = false)
-    @Roles
-    private String role;
+    @ManyToOne
+    @JoinColumn(name = "IdRuolo")
+    public Ruolo role;
 
-    public ApplicationUser(String email, String password, UserRole role) {
+    public ApplicationUser(String email, String password, Ruolo role) {
         this.email = email;
         this.password = password;
-        this.role = role.name();
+        this.role = role;
     }
 
     public ApplicationUser() {
 
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -53,11 +63,12 @@ public class ApplicationUser {
         this.password = password;
     }
 
+    @io.quarkus.security.jpa.Roles
     public String getRole() {
-        return role;
+        return role != null ? role.description : null;
     }
 
-    public void setRole(String role) {
+    public void setRole(Ruolo role) {
         this.role = role;
     }
 }

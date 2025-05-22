@@ -17,6 +17,7 @@ import service.UserService;
 import web.model.AccessTokenResponse;
 import web.model.LoginRequest;
 import web.model.TokenResponse;
+import web.model.UserResponse;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -37,7 +38,7 @@ public class AuthenticationResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(LoginRequest request) {
-        ApplicationUser user = userService.authenticate(request.getEmail(), request.getPassword());
+        UserResponse user = userService.authenticate(request.getEmail(), request.getPassword());
         if (user == null) {
             return Response.status(Response.Status.UNAUTHORIZED)
                     .build();
@@ -54,7 +55,7 @@ public class AuthenticationResource {
     @RolesAllowed({"refresh_token"})
     public Response refresh(@Context SecurityContext securityContext) {
         String email = securityContext.getUserPrincipal().getName();
-        ApplicationUser user = userService.getUserByEmail(email);
+        UserResponse user = userService.getUserByEmail(email);
         if (user == null) {
             return Response.status(Response.Status.UNAUTHORIZED)
                     .build();
@@ -64,7 +65,7 @@ public class AuthenticationResource {
     }
 
 
-    private String getAccessToken(ApplicationUser user) {
+    private String getAccessToken(UserResponse user) {
         String token = Jwt
                 .issuer("demo-quarkus-jwt")
                 .subject(user.getEmail())
@@ -77,7 +78,7 @@ public class AuthenticationResource {
         return token;
     }
 
-    private String getRefreshToken(ApplicationUser user) {
+    private String getRefreshToken(UserResponse user) {
         String token = Jwt
                 .issuer("demo-quarkus-jwt")
                 .subject(user.getEmail())

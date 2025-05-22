@@ -1,26 +1,65 @@
 package service;
 
 import data.model.ApplicationUser;
+import data.model.Ruolo;
+import data.repository.RoleRepository;
 import data.repository.UserRepository;
+import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
+import web.UserResource;
+import web.model.CreateUserRequest;
+import web.model.UserResponse;
 
 @ApplicationScoped
 public class UserService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
-    public ApplicationUser authenticate(String username, String password) {
+
+
+
+
+    @Transactional
+    public UserResponse createUser(CreateUserRequest request) {
+        Ruolo ruoloEsistente = roleRepository.findById(request.getRole().getId());
+
+        String hash = BcryptUtil.bcryptHash(request.getPassword());
+
+        ApplicationUser user = new ApplicationUser(
+                request.getEmail(),
+                hash,
+                ruoloEsistente
+        );
+        userRepository.persist(user);
+
+        return toUserResponse(user);
+
+    }
+
+    public UserResponse authenticate(String username, String password) {
         ApplicationUser user = userRepository.authenticate(username, password);
         if (user != null) {
-            return user;
+            return toUserResponse(user);
         }
         return null;
     }
 
-    public ApplicationUser getUserByEmail(String username) {
-        return userRepository.findByEmail(username);
+    public UserResponse getUserByEmail(String username) {
+        return toUserResponse(userRepository.findByEmail(username));
+    }
+
+    private static UserResponse toUserResponse(ApplicationUser user) {
+        return new UserResponse(
+                user.getId(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole()
+        );
     }
 }
