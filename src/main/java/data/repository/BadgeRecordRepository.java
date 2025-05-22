@@ -52,4 +52,24 @@ public class BadgeRecordRepository {
                 .setParameter("tipoBadge", tipoBadge)
                 .getResultList();
     }
+
+    public List<BadgeRecordHistory> getBadgeRecordHistoryOfLunchArea() {
+        String descrizioneTimbratrice = "Mensa";
+
+        return em.createQuery(
+                        ("SELECT new data.model.BadgeRecordHistory(" +
+                                "p.idPersona, p.nome, p.cognome, p.azienda, p.mail, " +
+                                "b.id, b.codiceBadge, " +
+                                "bRercord.badge.id, bRercord.id.data, bRercord.id.ora, " +
+                                "bReader.id, bReader.descrizione" +
+                                ") " +
+                                "FROM BadgeRecord bRercord " +
+                                "INNER JOIN BadgeReader bReader ON bReader.id = bRercord.timbratrice.id " +
+                                "LEFT JOIN Badge b ON b.id = bRercord.badge.id " +
+                                "LEFT JOIN BadgeAssignment ba ON ba.badge.id = b.id " +
+                                "LEFT JOIN Person p ON p.idPersona = ba.persona.id " +
+                                "WHERE bReader.descrizione = :descrizioneTimbratrice"), BadgeRecordHistory.class)
+                .setParameter("descrizioneTimbratrice", descrizioneTimbratrice)
+                .getResultList();
+    }
 }

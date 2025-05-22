@@ -36,4 +36,12 @@ public class BadgeRecordHistoryResource {
     public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForVisitors() {
         return badgeRecordService.getBadgeRecordHistoryVisitors();
     }
+
+    @GET
+    @Path("/lunch-area")
+    @PermitAll
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryOfCanteen() {
+        return badgeRecordService.getBadgeRecordHistoryOfLunchArea();
+    }
 }
