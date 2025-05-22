@@ -1,9 +1,12 @@
 package data.model.Person;
 
+import data.model.BadgeAssignment;
+import data.model.Ruolo;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "Persone")
@@ -134,9 +137,16 @@ public class Person {
     @Column(name = "DataConsegnaDocPrivacy", nullable = false)
     private LocalDate dataConsegnaDocPrivacy;
 
+    @ManyToOne
+    @JoinColumn(name = "IdRuolo")
+    public Ruolo ruolo;
+
+    @OneToMany(mappedBy = "persona")
+    public List<BadgeAssignment> assegnazioniBadge;
+
     public Person() {}
 
-    public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, String tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy) {
+    public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, String tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy, Ruolo ruolo, List<BadgeAssignment> assegnazioniBadge) {
         this.idRuna = idRuna;
         this.nome = nome;
         this.cognome = cognome;
@@ -150,7 +160,7 @@ public class Person {
         this.cellulare = cellulare;
         this.fax = fax;
         this.pIva = pIva;
-        this.cf = BcryptUtil.bcryptHash(cf);
+        this.cf = cf;
         this.mail = mail;
         this.foto = foto;
         this.dataAssunzione = dataAssunzione;
@@ -170,21 +180,15 @@ public class Person {
         this.antincendio = antincendio;
         this.primoSoccorso = primoSoccorso;
         this.tipoDocumento = tipoDocumento;
-        this.numeroDocumento = BcryptUtil.bcryptHash(numeroDocumento);
+        this.numeroDocumento = numeroDocumento;
         this.dataScadenzaDoc = dataScadenzaDoc;
         this.giorniScadenza = giorniScadenza;
         this.duvri = duvri;
         this.numCentriCosto = numCentriCosto;
         this.flagDocPrivacy = flagDocPrivacy;
         this.dataConsegnaDocPrivacy = dataConsegnaDocPrivacy;
-    }
-
-    public int getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
+        this.ruolo = ruolo;
+        this.assegnazioniBadge = assegnazioniBadge;
     }
 
     public Integer getIdRuna() {
@@ -505,5 +509,29 @@ public class Person {
 
     public void setDataConsegnaDocPrivacy(LocalDate dataConsegnaDocPrivacy) {
         this.dataConsegnaDocPrivacy = dataConsegnaDocPrivacy;
+    }
+
+    public Ruolo getRuolo() {
+        return ruolo;
+    }
+
+    public void setRuolo(Ruolo ruolo) {
+        this.ruolo = ruolo;
+    }
+
+    public List<BadgeAssignment> getAssegnazioniBadge() {
+        return assegnazioniBadge;
+    }
+
+    public void setAssegnazioniBadge(List<BadgeAssignment> assegnazioniBadge) {
+        this.assegnazioniBadge = assegnazioniBadge;
+    }
+
+    public int getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
     }
 }
