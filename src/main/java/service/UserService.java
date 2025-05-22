@@ -1,11 +1,10 @@
 package service;
 
-import data.model.ApplicationUser;
 import data.model.Ruolo;
+import data.model.User.ApplicationUser;
 import data.repository.RoleRepository;
 import data.repository.UserRepository;
 import io.quarkus.elytron.security.common.BcryptUtil;
-import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import web.UserResource;

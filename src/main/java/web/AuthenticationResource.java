@@ -1,6 +1,6 @@
 package web;
 
-import data.model.ApplicationUser;
+import data.model.User.ApplicationUser;
 import io.smallrye.jwt.build.Jwt;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.Consumes;
@@ -12,18 +12,15 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import org.eclipse.microprofile.jwt.Claims;
-import org.hibernate.boot.model.source.internal.hbm.AbstractPluralAssociationElementSourceImpl;
 import service.UserService;
-import web.model.AccessTokenResponse;
-import web.model.LoginRequest;
-import web.model.TokenResponse;
 import web.model.UserResponse;
+import web.model.token.AccessTokenResponse;
+import web.model.LoginRequest;
+import web.model.token.TokenResponse;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Set;
-
-import static io.smallrye.jwt.build.Jwt.upn;
 
 @Path("/auth")
 public class AuthenticationResource {

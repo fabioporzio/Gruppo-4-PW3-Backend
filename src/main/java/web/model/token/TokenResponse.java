@@ -1,4 +1,4 @@
-package web.model;
+package web.model.token;
 
 public class TokenResponse {
     private String accessToken;

@@ -1,6 +1,6 @@
 package data.repository;
 
-import data.model.ApplicationUser;
+import data.model.User.ApplicationUser;
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
@@ -22,11 +22,10 @@ public class UserRepository implements PanacheRepositoryBase<ApplicationUser, In
     }
 
     public ApplicationUser findByEmail(String email) {
-        ApplicationUser applicationUser = find(
+        return find(
                 "SELECT u from ApplicationUser u where " +
                         "u.email = :email ",
                 Parameters.with("email", email)
         ).firstResult();
-        return applicationUser;
     }
 }
