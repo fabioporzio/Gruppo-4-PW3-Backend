@@ -5,6 +5,7 @@ import data.model.User.ApplicationUser;
 import data.repository.RoleRepository;
 import data.repository.UserRepository;
 import io.quarkus.elytron.security.common.BcryptUtil;
+import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import web.UserResource;
@@ -39,6 +40,20 @@ public class UserService {
 
         return toUserResponse(user);
 
+    }
+
+    @Transactional
+    public boolean updateUser(int id, CreateUserRequest request) {
+        Ruolo ruoloEsistente = roleRepository.findById(request.getRole().getId());
+
+        System.out.println("Ruolo Esistente: " + ruoloEsistente);
+
+        int modify = userRepository.update("UPDATE ApplicationUser u " +
+                        "SET u.role = :role " +
+                        "WHERE u.id = :id",
+                Parameters.with("role", ruoloEsistente)
+                        .and("id", id));
+        return modify > 0;
     }
 
     public UserResponse authenticate(String username, String password) {

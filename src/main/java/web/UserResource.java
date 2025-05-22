@@ -1,11 +1,10 @@
 package web;
 
+import data.model.User.ApplicationUser;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import service.UserService;
 import web.model.CreateUserRequest;
 import web.model.UserResponse;
@@ -27,4 +26,18 @@ public class UserResource {
     public UserResponse addUser(CreateUserRequest user) {
         return userService.createUser(user);
     }
+
+    @PUT
+    @Path("/{id}")
+    @RolesAllowed("Admin")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateUser(@PathParam("id") int id, CreateUserRequest user) {
+        boolean modify = userService.updateUser(id, user);
+        if (modify) {
+            return Response.ok(true).build();
+        }
+        return Response.ok(false).build();
+    }
+
 }

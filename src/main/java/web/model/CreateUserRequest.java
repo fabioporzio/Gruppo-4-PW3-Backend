@@ -1,7 +1,6 @@
 package web.model;
 
 import data.model.Ruolo;
-import data.model.UserRole;
 
 public class CreateUserRequest {
     private String email;
