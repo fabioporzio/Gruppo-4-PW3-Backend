@@ -28,6 +28,17 @@ public class BadgeRecordService {
         return badgeRecordHistoryResponses;
     }
 
+    public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryVisitors() {
+        List<BadgeRecordHistoryResponse> badgeRecordHistoryResponses = new ArrayList<>();
+        List<BadgeRecordHistory> badgeRecordHistory = badgeRecordRepository.getBadgeRecordHistoryVisitors();
+
+        for (BadgeRecordHistory badgeRecordHistoryElement : badgeRecordHistory) {
+            BadgeRecordHistoryResponse badgeRecordHistoryResponse = getBadgeRecordHistoryResponse(badgeRecordHistoryElement);
+            badgeRecordHistoryResponses.add(badgeRecordHistoryResponse);
+        }
+        return badgeRecordHistoryResponses;
+    }
+
     public BadgeRecordHistoryResponse getBadgeRecordHistoryResponse(BadgeRecordHistory badgeRecordHistory) {
         return new BadgeRecordHistoryResponse(
                 badgeRecordHistory.getIdPersona(),

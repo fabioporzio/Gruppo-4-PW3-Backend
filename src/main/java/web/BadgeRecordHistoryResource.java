@@ -28,4 +28,12 @@ public class BadgeRecordHistoryResource {
     public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForSmEmployees() {
         return badgeRecordService.getBadgeRecordHistoryForSmEmployees();
     }
+
+    @GET
+    @Path("/visitors")
+    @PermitAll
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForVisitors() {
+        return badgeRecordService.getBadgeRecordHistoryVisitors();
+    }
 }
