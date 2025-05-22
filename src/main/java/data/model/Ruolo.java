@@ -11,7 +11,7 @@ public class Ruolo {
     int id;
 
     @Column(name = "Descrizione")
-    String description;
+    public String description;
 
 
     public Ruolo(int id, String descrizione) {
