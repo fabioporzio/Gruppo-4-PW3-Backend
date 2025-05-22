@@ -24,6 +24,14 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
+    public CreatePersonResponse getPersonById(int idPersona) {
+        Person person = personRepository.findById(idPersona);
+        if (person == null) {
+            return null;
+        }
+        return getCreatePersonResponse(person);
+    }
+
     public List<EmployeeContactListResponse> getPhoneDirectory() {
         List<EmployeeContactListResponse> employeeContactListResponses = new ArrayList<>();
         List<EmployeeContactList> employeeContactList = personRepository.getPhoneDirectory();
