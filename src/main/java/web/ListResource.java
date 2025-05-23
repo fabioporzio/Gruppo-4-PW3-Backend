@@ -1,8 +1,7 @@
 package web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import data.model.Person.Person;
-import jakarta.annotation.security.RolesAllowed;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -18,14 +17,11 @@ import java.util.Map;
 @Path("/list")
 public class ListResource {
 
-    private final Map map;
-    private final List list;
-    private ListService listService;
+    private final ListService listService;
 
-    public ListResource(ListService listService, Map map, List list) {
+    @Inject
+    public ListResource(ListService listService) {
         this.listService = listService;
-        this.map = map;
-        this.list = list;
     }
 
     @GET
@@ -37,8 +33,8 @@ public class ListResource {
 
         mapCountPeopleInCompany.put("Employees", listService.getCountPeopleInCompany());
         mapCountPeopleInCompany.put("Visitors", listService.getCountVisitorInCompany());
-        mapCountPeopleInCompany.put("Mainetance", listService.getCountMainetanceInCompany());
-        mapCountPeopleInCompany.put("LunchArea", listService.getCountPeopleLaunchArea());
+        mapCountPeopleInCompany.put("Maintenance", listService.getCountMaintenanceInCompany());
+        mapCountPeopleInCompany.put("LunchArea", listService.getCountPeopleLunchArea());
         mapCountPeopleInCompany.put("Cigarette", listService.getCountPeopleCigarette());
         mapCountPeopleInCompany.put("Parking", listService.getCountPeopleParking());
 
@@ -54,9 +50,8 @@ public class ListResource {
 
         mapPeopleInCompany.put("Employees", listService.getPeopleInCompany());
         mapPeopleInCompany.put("Visitors", listService.getVisitorInCompany());
-        mapPeopleInCompany.put("Mainetance", listService.getMainetanceInCompany());
+        mapPeopleInCompany.put("Maintenance", listService.getMaintenanceInCompany());
 
         return Response.ok(mapPeopleInCompany).build();
     }
-
 }
