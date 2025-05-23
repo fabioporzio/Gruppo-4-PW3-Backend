@@ -191,6 +191,9 @@ public class Person {
         this.assegnazioniBadge = assegnazioniBadge;
     }
 
+    public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String s, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, String name, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy) {
+    }
+
     public Integer getIdRuna() {
         return idRuna;
     }

@@ -17,6 +17,96 @@ public class PersonRepository implements PanacheRepositoryBase<Person, Integer> 
     @Context
     EntityManager em;
 
+    public List<Person> findPeopleSMInCompany() {
+        return getEntityManager().createNativeQuery(
+                        "SELECT p.* FROM Timbrature t " +
+                                "INNER JOIN Timbratrice te ON te.Id = t.IdTimbratrice " +
+                                "INNER JOIN Badge b ON b.IdBadge = t.IdBadge " +
+                                "INNER JOIN Persone p ON p.IdPersona = b.IdPersona " +
+                                "WHERE te.Id = 1 AND t.DataTimbratura = CAST(GETDATE() AS DATE) AND b.TipoBadge = 'Dipendente'", Person.class)
+                .getResultList();
+    }
+
+    public List<Person> findPeopleSMOutCompany() {
+        return getEntityManager().createNativeQuery(
+                        "SELECT p.* FROM Timbrature t " +
+                                "INNER JOIN Timbratrice te ON te.Id = t.IdTimbratrice " +
+                                "INNER JOIN Badge b ON b.IdBadge = t.IdBadge " +
+                                "INNER JOIN Persone p ON p.IdPersona = b.IdPersona " +
+                                "WHERE te.Id = 5 AND t.DataTimbratura = CAST(GETDATE() AS DATE) AND b.TipoBadge = 'Dipendente'", Person.class)
+                .getResultList();
+    }
+
+    public List<Person> findPeopleLunchArea() {
+        return getEntityManager().createNativeQuery(
+                        "SELECT p.* FROM Timbrature t " +
+                                "INNER JOIN Timbratrice te ON te.Id = t.IdTimbratrice " +
+                                "INNER JOIN Badge b ON b.IdBadge = t.IdBadge " +
+                                "INNER JOIN Persone p ON p.IdPersona = b.IdPersona " +
+                                "WHERE te.Id = 2 AND t.DataTimbratura = CAST(GETDATE() AS DATE)", Person.class)
+                .getResultList();
+    }
+
+    public List<Person> findPeopleCigarette() {
+        return getEntityManager().createNativeQuery(
+                        "SELECT p.* FROM Timbrature t " +
+                                "INNER JOIN Timbratrice te ON te.Id = t.IdTimbratrice " +
+                                "INNER JOIN Badge b ON b.IdBadge = t.IdBadge " +
+                                "INNER JOIN Persone p ON p.IdPersona = b.IdPersona " +
+                                "WHERE te.Id = 3 AND t.DataTimbratura = CAST(GETDATE() AS DATE)", Person.class)
+                .getResultList();
+    }
+
+    public List<Person> findPeopleParking() {
+        return getEntityManager().createNativeQuery(
+                        "SELECT p.* FROM Timbrature t " +
+                                "INNER JOIN Timbratrice te ON te.Id = t.IdTimbratrice " +
+                                "INNER JOIN Badge b ON b.IdBadge = t.IdBadge " +
+                                "INNER JOIN Persone p ON p.IdPersona = b.IdPersona " +
+                                "WHERE te.Id = 4 AND t.DataTimbratura = CAST(GETDATE() AS DATE)", Person.class)
+                .getResultList();
+    }
+
+    public List<Person> findVisitorInCompany() {
+        return getEntityManager().createNativeQuery(
+                        "SELECT p.* FROM Timbrature t " +
+                                "INNER JOIN Timbratrice te ON te.Id = t.IdTimbratrice " +
+                                "INNER JOIN Badge b ON b.IdBadge = t.IdBadge " +
+                                "INNER JOIN Persone p ON p.IdPersona = b.IdPersona " +
+                                "WHERE te.Id = 1 AND t.DataTimbratura = CAST(GETDATE() AS DATE) AND b.TipoBadge = 'Visitatore'", Person.class)
+                .getResultList();
+    }
+
+    public List<Person> findVisitorOutCompany() {
+        return getEntityManager().createNativeQuery(
+                        "SELECT p.* FROM Timbrature t " +
+                                "INNER JOIN Timbratrice te ON te.Id = t.IdTimbratrice " +
+                                "INNER JOIN Badge b ON b.IdBadge = t.IdBadge " +
+                                "INNER JOIN Persone p ON p.IdPersona = b.IdPersona " +
+                                "WHERE te.Id = 5 AND t.DataTimbratura = CAST(GETDATE() AS DATE) AND b.TipoBadge = 'Visitatore'", Person.class)
+                .getResultList();
+    }
+
+    public List<Person> findMainetanceInCompany() {
+        return getEntityManager().createNativeQuery(
+                        "SELECT p.* FROM Timbrature t " +
+                                "INNER JOIN Timbratrice te ON te.Id = t.IdTimbratrice " +
+                                "INNER JOIN Badge b ON b.IdBadge = t.IdBadge " +
+                                "INNER JOIN Persone p ON p.IdPersona = b.IdPersona " +
+                                "WHERE te.Id = 1 AND t.DataTimbratura = CAST(GETDATE() AS DATE) AND b.TipoBadge = 'Manutentore'", Person.class)
+                .getResultList();
+    }
+
+    public List<Person> findMainetanceOutCompany() {
+        return getEntityManager().createNativeQuery(
+                        "SELECT p.* FROM Timbrature t " +
+                                "INNER JOIN Timbratrice te ON te.Id = t.IdTimbratrice " +
+                                "INNER JOIN Badge b ON b.IdBadge = t.IdBadge " +
+                                "INNER JOIN Persone p ON p.IdPersona = b.IdPersona " +
+                                "WHERE te.Id = 5 AND t.DataTimbratura = CAST(GETDATE() AS DATE) AND b.TipoBadge = 'Manutentore'", Person.class)
+                .getResultList();
+    }
+
     @Transactional
     public boolean updatePersonData(Person person, int idPersona) {
         int update = update("UPDATE Person p " +

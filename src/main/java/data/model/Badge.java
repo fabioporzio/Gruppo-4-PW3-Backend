@@ -24,7 +24,7 @@ public class Badge {
     @Column(name = "CodiceBadge", nullable = false)
     public int codiceBadge;
 
-    @Column(name = "CodiceEsterno")
+    @Column(name = "CodiceEsterno", columnDefinition = "nchar(10)")
     public String codiceEsterno;
 
     @Column(name = "Abilitata", nullable = false)
@@ -45,7 +45,7 @@ public class Badge {
     @Column(name = "Eliminata", nullable = false)
     public boolean eliminata;
 
-    @Column(name = "RegPresenza")
+    @Column(name = "RegPresenza", columnDefinition = "nchar(100)")
     public String regPresenza;
 
     @Column(name = "DataRestituzione", nullable = false)
@@ -54,16 +54,16 @@ public class Badge {
     @Column(name = "IdRestituzione")
     public Integer idRestituzione;
 
-    @Column(name = "Apb")
+    @Column(name = "Apb", columnDefinition = "nchar(10)")
     public String apb;
 
     @Column(name = "Pin")
     public Integer pin;
 
-    @Column(name = "ApbState")
+    @Column(name = "ApbState", columnDefinition = "nchar(10)")
     public String apbState;
 
-    @Column(name = "TipoBadge", nullable = false)
+    @Column(name = "TipoBadge", length = 20, nullable = false)
     public String tipoBadge;
 
     @OneToMany(mappedBy = "badge")
