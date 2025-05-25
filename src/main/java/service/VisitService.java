@@ -10,7 +10,10 @@ import data.repository.VisitRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
+import web.VisitResource;
 import web.model.CreateVisitRequest;
+
+import java.util.List;
 
 @ApplicationScoped
 public class VisitService {
@@ -59,6 +62,14 @@ public class VisitService {
         else {
             return null;
         }
+    }
+
+    public List<Visit> getFutureVisits() {
+        return visitRepository.getFutureVisit();
+    }
+
+    public List<Visit> getTodayVisits() {
+        return visitRepository.getTodayVisit();
     }
 
     public Visit getVisit(CreateVisitRequest createVisitRequest, Person visitatore, Person responsabileVisita, ItProvision itProvision) {

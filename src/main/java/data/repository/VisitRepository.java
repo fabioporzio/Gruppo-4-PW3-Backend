@@ -9,8 +9,24 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import web.model.CreateVisitRequest;
 
+import java.util.List;
+
 @ApplicationScoped
 public class VisitRepository implements PanacheRepositoryBase<Visit, Integer> {
+
+    public List<Visit> getFutureVisit() {
+        return getEntityManager().createNativeQuery("SELECT *\n" +
+                "FROM Visite\n" +
+                "WHERE DataInizio >= DATEADD(DAY, 1, CAST(GETDATE() AS DATE));", Visit.class)
+                .getResultList();
+    }
+
+    public List<Visit> getTodayVisit() {
+        return getEntityManager().createNativeQuery("SELECT *\n" +
+                        "FROM Visite\n" +
+                        "WHERE DataInizio = CAST(GETDATE() AS DATE);", Visit.class)
+                .getResultList();
+    }
 
     @Transactional
     public boolean updateVisit(Visit visit, int idVisita) {

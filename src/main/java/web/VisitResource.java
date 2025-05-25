@@ -10,7 +10,7 @@ import service.VisitService;
 import web.model.CreateVisitRequest;
 
 @Path("/visit")
-@DenyAll
+//@DenyAll
 public class VisitResource {
 
     private final VisitService visitService;
@@ -44,6 +44,22 @@ public class VisitResource {
             return Response.ok().build();
         }
         return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+
+    @GET
+    @Path("/future_visits")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getVisit() {
+        return Response.ok(visitService.getFutureVisits()).build();
+    }
+
+    @GET
+    @Path("/today_visits")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getTodayVisit() {
+        return Response.ok(visitService.getTodayVisits()).build();
     }
 
 }
