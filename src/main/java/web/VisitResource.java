@@ -3,6 +3,7 @@ package web;
 import data.model.Visit;
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -47,19 +48,13 @@ public class VisitResource {
     }
 
     @GET
-    @Path("/future_visits")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getVisit() {
-        return Response.ok(visitService.getFutureVisits()).build();
+    public Response getVisit(@QueryParam("id") Integer id) {
+        if(id == null)
+        {
+            return Response.ok(visitService.getAllVisits()).build();
+        }
+        return Response.ok(visitService.getVisitsByPerson(id)).build();
     }
-
-    @GET
-    @Path("/today_visits")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response getTodayVisit() {
-        return Response.ok(visitService.getTodayVisits()).build();
-    }
-
 }
