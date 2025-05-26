@@ -140,12 +140,9 @@ public class Person {
     @JoinColumn(name = "IdRuolo")
     public Ruolo ruolo;
 
-    @OneToMany(mappedBy = "persona")
-    public List<BadgeAssignment> assegnazioniBadge;
-
     public Person() {}
 
-    public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, String tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy, Ruolo ruolo, List<BadgeAssignment> assegnazioniBadge) {
+    public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, String tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy, Ruolo ruolo) {
         this.idRuna = idRuna;
         this.nome = nome;
         this.cognome = cognome;
@@ -187,7 +184,6 @@ public class Person {
         this.flagDocPrivacy = flagDocPrivacy;
         this.dataConsegnaDocPrivacy = dataConsegnaDocPrivacy;
         this.ruolo = ruolo;
-        this.assegnazioniBadge = assegnazioniBadge;
     }
 
     public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String s, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, String name, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy) {
@@ -519,14 +515,6 @@ public class Person {
 
     public void setRuolo(Ruolo ruolo) {
         this.ruolo = ruolo;
-    }
-
-    public List<BadgeAssignment> getAssegnazioniBadge() {
-        return assegnazioniBadge;
-    }
-
-    public void setAssegnazioniBadge(List<BadgeAssignment> assegnazioniBadge) {
-        this.assegnazioniBadge = assegnazioniBadge;
     }
 
     public int getIdPersona() {

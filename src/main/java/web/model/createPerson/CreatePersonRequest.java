@@ -49,10 +49,9 @@ public class CreatePersonRequest {
     private Integer numCentriCosto;
     private Boolean flagDocPrivacy;
     private LocalDate dataConsegnaDocPrivacy;
-    private Ruolo ruolo;
-    private List<BadgeAssignment> assegnazioniBadge;
+    private int idRuolo;
 
-    public CreatePersonRequest(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, DocumentType tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy, Ruolo ruolo, List<BadgeAssignment> assegnazioniBadge) {
+    public CreatePersonRequest(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, DocumentType tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy, int idRuolo) {
         this.idRuna = idRuna;
         this.nome = nome;
         this.cognome = cognome;
@@ -88,13 +87,12 @@ public class CreatePersonRequest {
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
         this.dataScadenzaDoc = dataScadenzaDoc;
-        this.giorniScadenza =(int)ChronoUnit.DAYS.between(LocalDate.now(),dataScadenzaDoc);
+        this.giorniScadenza = ChronoUnit.DAYS.between(LocalDate.now(), dataScadenzaDoc) > 0 ? (int) ChronoUnit.DAYS.between(LocalDate.now(), dataScadenzaDoc) : 0 ;
         this.duvri = duvri;
         this.numCentriCosto = numCentriCosto;
         this.flagDocPrivacy = flagDocPrivacy;
         this.dataConsegnaDocPrivacy = dataConsegnaDocPrivacy;
-        this.ruolo = ruolo;
-        this.assegnazioniBadge = assegnazioniBadge;
+        this.idRuolo = idRuolo;
     }
 
     public Integer getIdRuna() {
@@ -382,7 +380,7 @@ public class CreatePersonRequest {
     }
 
     public void setGiorniScadenza(int giorniScadenza) {
-        this.giorniScadenza = (int) ChronoUnit.DAYS.between(LocalDate.now(), getDataScadenzaDoc());
+        this.giorniScadenza = ChronoUnit.DAYS.between(LocalDate.now(), dataScadenzaDoc) > 0 ? (int) ChronoUnit.DAYS.between(LocalDate.now(), dataScadenzaDoc) : 0 ;;
     }
 
     public Boolean getDuvri() {
@@ -417,19 +415,11 @@ public class CreatePersonRequest {
         this.dataConsegnaDocPrivacy = dataConsegnaDocPrivacy;
     }
 
-    public Ruolo getRuolo() {
-        return ruolo;
+    public int getIdRuolo() {
+        return idRuolo;
     }
 
-    public void setRuolo(Ruolo ruolo) {
-        this.ruolo = ruolo;
-    }
-
-    public List<BadgeAssignment> getAssegnazioniBadge() {
-        return assegnazioniBadge;
-    }
-
-    public void setAssegnazioniBadge(List<BadgeAssignment> assegnazioniBadge) {
-        this.assegnazioniBadge = assegnazioniBadge;
+    public void setIdRuolo(int idRuolo) {
+        this.idRuolo = idRuolo;
     }
 }

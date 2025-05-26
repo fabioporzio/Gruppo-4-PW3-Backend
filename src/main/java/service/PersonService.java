@@ -2,7 +2,9 @@ package service;
 
 import data.model.EmployeeContactList;
 import data.model.Person.Person;
+import data.model.Ruolo;
 import data.repository.PersonRepository;
+import data.repository.RoleRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
@@ -18,9 +20,11 @@ import java.util.List;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final RoleRepository roleRepository;
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, RoleRepository roleRepository) {
         this.personRepository = personRepository;
+        this.roleRepository = roleRepository;
     }
 
     public CreatePersonResponse getPersonById(int idPersona) {
@@ -44,7 +48,8 @@ public class PersonService {
 
     @Transactional
     public CreatePersonResponse persistPerson(CreatePersonRequest createPersonRequest) {
-        Person person = getPerson(createPersonRequest);
+        Ruolo ruolo = roleRepository.findById(createPersonRequest.getIdRuolo());
+        Person person = getPerson(createPersonRequest, ruolo);
 
         personRepository.persist(person);
 
@@ -53,7 +58,8 @@ public class PersonService {
 
     @Transactional
     public Response updatePerson(int idPersona, CreatePersonRequest createPersonRequest) {
-        Person person = getPerson(createPersonRequest);
+        Ruolo ruolo = roleRepository.findById(createPersonRequest.getIdRuolo());
+        Person person = getPerson(createPersonRequest, ruolo);
         boolean updated = personRepository.updatePersonData(person, idPersona);
 
         if (updated) {
@@ -92,7 +98,7 @@ public class PersonService {
         );
     }
 
-    private Person getPerson(CreatePersonRequest createPersonRequest) {
+    private Person getPerson(CreatePersonRequest createPersonRequest, Ruolo ruolo) {
         return new Person(
                 createPersonRequest.getIdRuna(),
                 createPersonRequest.getNome(),
@@ -134,8 +140,7 @@ public class PersonService {
                 createPersonRequest.getNumCentriCosto(),
                 createPersonRequest.getFlagDocPrivacy(),
                 createPersonRequest.getDataConsegnaDocPrivacy(),
-                createPersonRequest.getRuolo(),
-                createPersonRequest.getAssegnazioniBadge()
+                ruolo
         );
     }
 
