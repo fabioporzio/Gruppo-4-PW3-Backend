@@ -1,6 +1,8 @@
 package web;
 
 import data.model.Person.Person;
+import jakarta.annotation.security.DenyAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Path("/list")
+@DenyAll
 public class ListResource {
 
     private final ListService listService;
@@ -26,6 +29,7 @@ public class ListResource {
 
     @GET
     @Path("/count")
+    @RolesAllowed({"Admin", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getCountAndListPeopleInCompany() {
@@ -43,6 +47,7 @@ public class ListResource {
 
     @GET
     @Path("/people")
+    @RolesAllowed({"Admin", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getPeopleInCompany() {
