@@ -2,6 +2,7 @@ package web;
 
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -22,7 +23,7 @@ public class EmployeeContactListResource {
     }
 
     @GET
-    @PermitAll
+    @RolesAllowed({"Admin", "Reception", "Requester"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<EmployeeContactListResponse> getPhoneDirectory() {
         return personService.getPhoneDirectory();

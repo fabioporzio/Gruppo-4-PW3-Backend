@@ -2,6 +2,7 @@ package web;
 
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.PermitAll;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -23,7 +24,7 @@ public class BadgeRecordHistoryResource {
 
     @GET
     @Path("/secondo-mona")
-    @PermitAll
+    @RolesAllowed({"Admin", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForSmEmployees() {
         return badgeRecordService.getBadgeRecordHistoryForSmEmployees();
@@ -31,7 +32,7 @@ public class BadgeRecordHistoryResource {
 
     @GET
     @Path("/visitors")
-    @PermitAll
+    @RolesAllowed({"Admin", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForVisitors() {
         return badgeRecordService.getBadgeRecordHistoryVisitors();
@@ -39,7 +40,7 @@ public class BadgeRecordHistoryResource {
 
     @GET
     @Path("/lunch-area")
-    @PermitAll
+    @RolesAllowed({"Admin", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryOfCanteen() {
         return badgeRecordService.getBadgeRecordHistoryOfLunchArea();
