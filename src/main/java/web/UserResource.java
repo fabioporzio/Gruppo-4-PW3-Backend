@@ -1,6 +1,7 @@
 package web;
 
 import data.model.User.ApplicationUser;
+import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -10,6 +11,7 @@ import web.model.CreateUserRequest;
 import web.model.UserResponse;
 
 @Path("/user")
+@DenyAll
 public class UserResource {
 
     private final UserService userService;
