@@ -64,6 +64,14 @@ public class VisitService {
         }
     }
 
+    public List<Visit> getAllVisits() {
+        return visitRepository.findAll().list();
+    }
+
+    public List<Visit> getVisitsByPerson(int id) {
+        return visitRepository.findByPerson(id);
+    }
+
     public List<Visit> getFutureVisits() {
         return visitRepository.getFutureVisit();
     }

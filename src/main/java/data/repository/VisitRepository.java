@@ -14,6 +14,13 @@ import java.util.List;
 @ApplicationScoped
 public class VisitRepository implements PanacheRepositoryBase<Visit, Integer> {
 
+    public List<Visit> findByPerson(int id) {
+        return getEntityManager()
+                .createNativeQuery("SELECT * FROM Visite WHERE IdResponsabile = ?", Visit.class)
+                .setParameter(1, id)
+                .getResultList();
+    }
+
     public List<Visit> getFutureVisit() {
         return getEntityManager().createNativeQuery("SELECT *\n" +
                 "FROM Visite\n" +
