@@ -62,4 +62,14 @@ public class VisitResource {
         }
         return Response.ok(visitService.getVisitsByPerson(id)).build();
     }
+
+    @DELETE
+    @Path("/{id}")
+    @RolesAllowed({"Admin", "Reception"})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response deleteVisit(@PathParam("id") Integer id) {
+        boolean deleted = visitService.deleteVisit(id);
+        return Response.ok(deleted).build();
+    }
 }

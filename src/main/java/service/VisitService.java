@@ -64,6 +64,11 @@ public class VisitService {
         }
     }
 
+    @Transactional
+    public boolean deleteVisit(int idVisit) {
+        return visitRepository.deleteById(idVisit);
+    }
+
     public List<Visit> getAllVisits() {
         return visitRepository.findAll().list();
     }
