@@ -2,7 +2,6 @@ package data.model.Person;
 
 import data.model.BadgeAssignment;
 import data.model.Ruolo;
-import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

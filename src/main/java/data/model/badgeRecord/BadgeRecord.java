@@ -13,20 +13,20 @@ public class BadgeRecord {
 
     @Id
     @Column(name = "DataTimbratura", nullable = false)
-    public LocalDate data;
+    private LocalDate data;
 
     @Id
     @Column(name = "OraTimbratura", nullable = false)
-    public LocalTime ora;
+    private LocalTime ora;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "IdBadge", nullable = false)
-    public Badge badge;
+    private Badge badge;
 
     @ManyToOne
     @JoinColumn(name = "IdTimbratrice")
-    public BadgeReader timbratrice;
+    private BadgeReader timbratrice;
 
     public BadgeRecord() {}
 

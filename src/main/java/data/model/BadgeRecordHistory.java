@@ -1,7 +1,5 @@
 package data.model;
 
-import data.model.badgeRecord.BadgeRecordCompositePrimaryKey;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 

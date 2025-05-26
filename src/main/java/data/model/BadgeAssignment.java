@@ -11,21 +11,21 @@ public class BadgeAssignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    public int id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "IdBadge", nullable = false)
-    public Badge badge;
+    private Badge badge;
 
     @ManyToOne
     @JoinColumn(name = "IdPersona", nullable = false)
-    public Person persona;
+    private Person persona;
 
     @Column(name = "DataInizioEffettiva", nullable = false)
-    public LocalDate dataInizioEffettiva;
+    private LocalDate dataInizioEffettiva;
 
     @Column(name = "DataFineEffettiva", nullable = false)
-    public LocalDate dataFineEffettiva;
+    private LocalDate dataFineEffettiva;
 
     public BadgeAssignment() {}
 

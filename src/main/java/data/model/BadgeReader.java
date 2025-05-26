@@ -1,6 +1,5 @@
 package data.model;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,10 +9,10 @@ public class BadgeReader  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    public int id;
+    private int id;
 
     @Column(name = "Descrizione")
-    public String descrizione;
+    private String descrizione;
 
     public BadgeReader() {}
 

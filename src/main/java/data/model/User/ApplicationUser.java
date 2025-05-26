@@ -15,7 +15,7 @@ public class ApplicationUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    public int id;
+    private int id;
 
     @Column(name = "Email", length = 100)
     @Username
@@ -27,7 +27,7 @@ public class ApplicationUser {
 
     @ManyToOne
     @JoinColumn(name = "IdRuolo")
-    public Ruolo role;
+    private Ruolo role;
 
     public ApplicationUser(String email, String password, Ruolo role) {
         this.email = email;
@@ -35,10 +35,7 @@ public class ApplicationUser {
         this.role = role;
     }
 
-    public ApplicationUser() {
-
-    }
-
+    public ApplicationUser() {}
 
     public int getId() {
         return id;
@@ -64,7 +61,7 @@ public class ApplicationUser {
         this.password = password;
     }
 
-    @io.quarkus.security.jpa.Roles
+    @Roles
     public String getRole() {
         return role != null ? role.description : null;
     }

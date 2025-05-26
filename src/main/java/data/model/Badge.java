@@ -12,62 +12,62 @@ public class Badge {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IdBadge")
-    public int id;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "IdPersona", nullable = false)
-    public Person persona;
+    private Person persona;
 
     @Column(name = "IdCategoria")
-    public Integer idCategoria;
+    private Integer idCategoria;
 
     @Column(name = "CodiceBadge", nullable = false)
-    public int codiceBadge;
+    private int codiceBadge;
 
     @Column(name = "CodiceEsterno", columnDefinition = "nchar(10)")
-    public String codiceEsterno;
+    private String codiceEsterno;
 
     @Column(name = "Abilitata", nullable = false)
-    public boolean abilitata;
+    private boolean abilitata;
 
     @Column(name = "DataInizio", nullable = false)
-    public LocalDate dataInizio;
+    private LocalDate dataInizio;
 
     @Column(name = "Datafine", nullable = false)
-    public LocalDate dataFine;
+    private LocalDate dataFine;
 
     @Column(name = "ConScadenza", nullable = false)
-    public boolean conScadenza;
+    private boolean conScadenza;
 
     @Column(name = "Attivata")
-    public Boolean attivata;
+    private Boolean attivata;
 
     @Column(name = "Eliminata", nullable = false)
-    public boolean eliminata;
+    private boolean eliminata;
 
     @Column(name = "RegPresenza", columnDefinition = "nchar(100)")
-    public String regPresenza;
+    private String regPresenza;
 
     @Column(name = "DataRestituzione", nullable = false)
-    public LocalDate dataRestituzione;
+    private LocalDate dataRestituzione;
 
     @Column(name = "IdRestituzione")
-    public Integer idRestituzione;
+    private Integer idRestituzione;
 
     @Column(name = "Apb", columnDefinition = "nchar(10)")
-    public String apb;
+    private String apb;
 
     @Column(name = "Pin")
-    public Integer pin;
+    private Integer pin;
 
     @Column(name = "ApbState", columnDefinition = "nchar(10)")
-    public String apbState;
+    private String apbState;
 
     @Column(name = "TipoBadge", length = 20, nullable = false)
-    public String tipoBadge;
+    private String tipoBadge;
 
     @OneToMany(mappedBy = "badge")
-    public List<BadgeAssignment> assegnazioni;
+    private List<BadgeAssignment> assegnazioni;
 
     public Badge() {}
 

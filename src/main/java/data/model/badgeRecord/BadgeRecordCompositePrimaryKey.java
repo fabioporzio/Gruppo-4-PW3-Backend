@@ -6,9 +6,9 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 public class BadgeRecordCompositePrimaryKey implements Serializable {
-    public LocalDate data;
-    public LocalTime ora;
-    public Integer badge;
+    private LocalDate data;
+    private LocalTime ora;
+    private Integer badge;
 
     public BadgeRecordCompositePrimaryKey() {}
 

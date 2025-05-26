@@ -1,7 +1,6 @@
 package data.model;
 
 import data.model.Person.Person;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -8,20 +8,17 @@ public class Ruolo {
 
     @Id
     @Column(name = "Id")
-    int id;
+    private int id;
 
     @Column(name = "Descrizione")
     public String description;
-
 
     public Ruolo(int id, String descrizione) {
         this.id = id;
         this.description = descrizione;
     }
 
-    public Ruolo() {
-
-    }
+    public Ruolo() {}
 
     public int getId() {
         return id;
@@ -38,5 +35,4 @@ public class Ruolo {
     public void setDescrizione(String description) {
         this.description = description;
     }
-
 }
