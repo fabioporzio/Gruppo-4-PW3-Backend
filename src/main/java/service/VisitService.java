@@ -30,9 +30,8 @@ public class VisitService {
 
     @Transactional
     public Visit addVisit(CreateVisitRequest createVisitRequest) {
-        Person visitatore = personRepository.findById(createVisitRequest.getIdPersonaVisitatore());
-        System.out.println(visitatore);
-        Person responsabileVisita = personRepository.findById(createVisitRequest.getIdResponsabile());
+        Person visitatore = personRepository.findByNameAndSurname(createVisitRequest.getNomeVisitatore(), createVisitRequest.getCognomeVisitatore());
+        Person responsabileVisita = personRepository.findByEmail(createVisitRequest.getEmailResponsabileVisita());
         System.out.println(responsabileVisita);
         ItProvision itProvision = itProvisionRepository.findById(createVisitRequest.getIdMaterialeInformatico());
 
@@ -47,8 +46,8 @@ public class VisitService {
 
     @Transactional
     public Visit updateVisit(int idVisit, CreateVisitRequest createVisitRequest) {
-        Person visitatore = personRepository.findById(createVisitRequest.getIdPersonaVisitatore());
-        Person responsabileVisita = personRepository.findById(createVisitRequest.getIdResponsabile());
+        Person visitatore = personRepository.findByNameAndSurname(createVisitRequest.getNomeVisitatore(), createVisitRequest.getCognomeVisitatore());
+        Person responsabileVisita = personRepository.findByEmail(createVisitRequest.getEmailResponsabileVisita());
         ItProvision itProvision = itProvisionRepository.findById(createVisitRequest.getIdMaterialeInformatico());
         Visit visit = getVisit(createVisitRequest, visitatore, responsabileVisita, itProvision);
         if (visit == null) {

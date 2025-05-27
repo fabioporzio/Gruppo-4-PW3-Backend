@@ -9,21 +9,23 @@ public class CreateVisitRequest {
     private LocalTime oraInizio;
     private LocalTime oraFine;
     private String motivo;
-    private int idPersonaVisitatore;
-    private int idResponsabile;
+    private String nomeVisitatore;
+    private String cognomeVisitatore;
+    private String emailResponsabileVisita;
     private boolean flagDPI;
     private int idMaterialeInformatico;
     private Boolean vincolo;
     private boolean flagAccessoConAutomezzo;
 
-    public CreateVisitRequest(LocalDate dataInizio, LocalDate dataFine, LocalTime oraInizio, LocalTime oraFine, String motivo, int idPersonaVisitatore, int idResponsabile, boolean flagDPI, int idMaterialeInformatico, Boolean vincolo, boolean flagAccessoConAutomezzo) {
+    public CreateVisitRequest(LocalDate dataInizio, LocalDate dataFine, LocalTime oraInizio, LocalTime oraFine, String motivo, String nomeVisitatore, String cognomeVisitatore, String emailResponsabileVisita, boolean flagDPI, int idMaterialeInformatico, Boolean vincolo, boolean flagAccessoConAutomezzo) {
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.oraInizio = oraInizio;
         this.oraFine = oraFine;
         this.motivo = motivo;
-        this.idPersonaVisitatore = idPersonaVisitatore;
-        this.idResponsabile = idResponsabile;
+        this.nomeVisitatore = nomeVisitatore;
+        this.cognomeVisitatore = cognomeVisitatore;
+        this.emailResponsabileVisita = emailResponsabileVisita;
         this.flagDPI = flagDPI;
         this.idMaterialeInformatico = idMaterialeInformatico;
         this.vincolo = vincolo;
@@ -70,20 +72,28 @@ public class CreateVisitRequest {
         this.motivo = motivo;
     }
 
-    public int getIdPersonaVisitatore() {
-        return idPersonaVisitatore;
+    public String getNomeVisitatore() {
+        return nomeVisitatore;
     }
 
-    public void setIdPersonaVisitatore(int idPersonaVisitatore) {
-        this.idPersonaVisitatore = idPersonaVisitatore;
+    public void setNomeVisitatore(String nomeVisitatore) {
+        this.nomeVisitatore = nomeVisitatore;
     }
 
-    public int getIdResponsabile() {
-        return idResponsabile;
+    public String getCognomeVisitatore() {
+        return cognomeVisitatore;
     }
 
-    public void setIdResponsabile(int idResponsabile) {
-        this.idResponsabile = idResponsabile;
+    public void setCognomeVisitatore(String cognomeVisitatore) {
+        this.cognomeVisitatore = cognomeVisitatore;
+    }
+
+    public String getEmailResponsabileVisita() {
+        return emailResponsabileVisita;
+    }
+
+    public void setEmailResponsabileVisita(String emailResponsabileVisita) {
+        this.emailResponsabileVisita = emailResponsabileVisita;
     }
 
     public boolean isFlagDPI() {

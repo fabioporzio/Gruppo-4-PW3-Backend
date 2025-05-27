@@ -107,6 +107,16 @@ public class PersonRepository implements PanacheRepositoryBase<Person, Integer> 
                 .getResultList();
     }
 
+    public Person findByEmail(String email) {
+        return find("SELECT p FROM Person p  WHERE p.mail = :mail",
+                Parameters.with("mail", email)).firstResult();
+    }
+
+    public Person findByNameAndSurname(String name, String surname) {
+        return find("SELECT p FROM Person p  WHERE p.nome = :name AND p.cognome = :surname",
+                Parameters.with("name", name).and("surname", surname)).firstResult();
+    }
+
     @Transactional
     public boolean updatePersonData(Person person, int idPersona) {
         int update = update("UPDATE Person p " +
