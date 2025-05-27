@@ -61,11 +61,11 @@ public class VisitResource {
     }
 
     @GET
-    @RolesAllowed({"Admin", "Reqeuster", "Reception"})
+    @RolesAllowed({"Admin", "Requester", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getVisit(@QueryParam("id") Integer id) {
-        if(!jwt.getGroups().contains("Requester") && id == null)
+        if( id == null)
         {
             return Response.ok(visitService.getAllVisits()).build();
         }
