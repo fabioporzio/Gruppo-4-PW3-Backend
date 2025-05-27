@@ -8,8 +8,7 @@ import jakarta.ws.rs.core.Context;
 import java.util.List;
 
 @ApplicationScoped
-public class BadgeRecordRepository {
-
+public class BadgeRecordRepository{
     @Context
     EntityManager em;
 
