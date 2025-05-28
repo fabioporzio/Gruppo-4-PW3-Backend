@@ -132,7 +132,7 @@ public class PersonService {
                 createPersonRequest.getPreposto(),
                 createPersonRequest.getAntincendio(),
                 createPersonRequest.getPrimoSoccorso(),
-                createPersonRequest.getTipoDocumento().name(),
+                createPersonRequest.getTipoDocumento(),
                 createPersonRequest.getNumeroDocumento(),
                 createPersonRequest.getDataScadenzaDoc(),
                 createPersonRequest.getGiorniScadenza(),

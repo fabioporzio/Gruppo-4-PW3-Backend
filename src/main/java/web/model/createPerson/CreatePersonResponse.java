@@ -1,5 +1,7 @@
 package web.model.createPerson;
 
+import data.model.Person.DocumentType;
+
 import java.time.LocalDate;
 
 public class CreatePersonResponse {
@@ -22,14 +24,14 @@ public class CreatePersonResponse {
     private final Boolean foto;
     private final String luogoNascita;
     private final LocalDate dataNascita;
-    private final String tipoDocumento;
+    private final DocumentType tipoDocumento;
     private final String numeroDocumento;
     private final LocalDate dataScadenzaDoc;
     private final int giorniScadenza;
     private final Boolean flagDocPrivacy;
     private final LocalDate dataConsegnaDocPrivacy;
 
-    public CreatePersonResponse(int idPersona, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, String luogoNascita, LocalDate dataNascita, String tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy) {
+    public CreatePersonResponse(int idPersona, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, String luogoNascita, LocalDate dataNascita, DocumentType tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy) {
         this.idPersona = idPersona;
         this.nome = nome;
         this.cognome = cognome;
@@ -128,7 +130,7 @@ public class CreatePersonResponse {
         return dataNascita;
     }
 
-    public String getTipoDocumento() {
+    public DocumentType getTipoDocumento() {
         return tipoDocumento;
     }
 

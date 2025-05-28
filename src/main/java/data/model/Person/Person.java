@@ -1,12 +1,9 @@
 package data.model.Person;
 
-import data.model.BadgeAssignment;
 import data.model.Ruolo;
-import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "Persone")
@@ -114,7 +111,8 @@ public class Person {
     private Boolean primoSoccorso;
 
     @Column(name = "TipoDocumento", length = 20, nullable = false)
-    private String tipoDocumento;
+    @Convert(converter = DocumentTypeConverter.class)
+    private DocumentType tipoDocumento;
 
     @Column(name = "NumeroDocumento", length = 100, nullable = false)
     private String numeroDocumento;
@@ -143,7 +141,7 @@ public class Person {
 
     public Person() {}
 
-    public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, String tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy, Ruolo ruolo) {
+    public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String pIva, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, DocumentType tipoDocumento, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy, Ruolo ruolo) {
         this.idRuna = idRuna;
         this.nome = nome;
         this.cognome = cognome;
@@ -157,7 +155,7 @@ public class Person {
         this.cellulare = cellulare;
         this.fax = fax;
         this.pIva = pIva;
-        this.cf = BcryptUtil.bcryptHash(cf);
+        this.cf = cf;
         this.mail = mail;
         this.foto = foto;
         this.dataAssunzione = dataAssunzione;
@@ -177,7 +175,7 @@ public class Person {
         this.antincendio = antincendio;
         this.primoSoccorso = primoSoccorso;
         this.tipoDocumento = tipoDocumento;
-        this.numeroDocumento = BcryptUtil.bcryptHash(numeroDocumento);
+        this.numeroDocumento = numeroDocumento;
         this.dataScadenzaDoc = dataScadenzaDoc;
         this.giorniScadenza = giorniScadenza;
         this.duvri = duvri;
@@ -187,7 +185,12 @@ public class Person {
         this.ruolo = ruolo;
     }
 
-    public Person(Integer idRuna, String nome, String cognome, String diminutivo, String azienda, String indirizzo, String citta, String provincia, String nazione, String telefono, String cellulare, String fax, String s, String cf, String mail, Boolean foto, LocalDate dataAssunzione, Integer matricola, Integer idFiliale, Integer idMansione, Integer idDeposito, Integer idRiferimento, Boolean visitatore, Integer accessNumber, Integer accessCount, Integer accessUpdate, String luogoNascita, LocalDate dataNascita, LocalDate dataScadCertificato, Boolean preposto, Boolean antincendio, Boolean primoSoccorso, String name, String numeroDocumento, LocalDate dataScadenzaDoc, int giorniScadenza, Boolean duvri, Integer numCentriCosto, Boolean flagDocPrivacy, LocalDate dataConsegnaDocPrivacy) {
+    public int getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
     }
 
     public Integer getIdRuna() {
@@ -446,11 +449,11 @@ public class Person {
         this.primoSoccorso = primoSoccorso;
     }
 
-    public String getTipoDocumento() {
+    public DocumentType getTipoDocumento() {
         return tipoDocumento;
     }
 
-    public void setTipoDocumento(String tipoDocumento) {
+    public void setTipoDocumento(DocumentType tipoDocumento) {
         this.tipoDocumento = tipoDocumento;
     }
 
@@ -516,13 +519,5 @@ public class Person {
 
     public void setRuolo(Ruolo ruolo) {
         this.ruolo = ruolo;
-    }
-
-    public int getIdPersona() {
-        return idPersona;
-    }
-
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
     }
 }
