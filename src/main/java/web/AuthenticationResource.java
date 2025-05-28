@@ -63,12 +63,14 @@ public class AuthenticationResource {
 
 
     private String getAccessToken(UserResponse user) {
+        int id = userService.getIdByUser(user);
         String token = Jwt
                 .issuer("demo-quarkus-jwt")
                 .subject(user.getEmail())
                 .upn(user.getEmail())
                 .groups(Set.of(user.getRole(), "access_token"))
                 .claim(Claims.nickname.name(), user.getEmail())
+                .claim("id", id)
                 .expiresIn(Duration.ofMinutes(1))
                 .issuedAt(Instant.now())
                 .sign();
@@ -76,12 +78,14 @@ public class AuthenticationResource {
     }
 
     private String getRefreshToken(UserResponse user) {
+        int id = userService.getIdByUser(user);
         String token = Jwt
                 .issuer("demo-quarkus-jwt")
                 .subject(user.getEmail())
                 .upn(user.getEmail())
                 .groups(Set.of(user.getRole(), "refresh_token"))
                 .claim(Claims.nickname.name(), user.getEmail())
+                .claim("id", id)
                 .expiresIn(Duration.ofHours(1))
                 .issuedAt(Instant.now())
                 .sign();

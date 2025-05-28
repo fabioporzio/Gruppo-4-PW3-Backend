@@ -56,6 +56,12 @@ public class UserService {
         return modify > 0;
     }
 
+    public Integer getIdByUser(UserResponse user) {
+        return userRepository.find(
+                "SELECT p.idPersona FROM Person p JOIN ApplicationUser u ON p.mail = u.email WHERE u.email = :email",
+                Parameters.with("email", user.getEmail())).project(Integer.class).firstResult();
+    }
+
     public UserResponse authenticate(String username, String password) {
         ApplicationUser user = userRepository.authenticate(username, password);
         if (user != null) {
