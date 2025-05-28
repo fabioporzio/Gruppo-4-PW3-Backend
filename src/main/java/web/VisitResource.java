@@ -1,5 +1,6 @@
 package web;
 
+import data.model.Badge;
 import data.model.Visit;
 import io.vertx.ext.auth.impl.jose.JWT;
 import jakarta.annotation.security.DenyAll;
@@ -9,19 +10,27 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import service.BadgeAssignmentService;
+import service.BadgeService;
 import service.VisitService;
+import web.model.CreateBadgeRequest;
 import web.model.CreateVisitRequest;
+import web.model.createPerson.CreatePersonRequest;
 
 @Path("/visit")
 @DenyAll
 public class VisitResource {
 
+    private final BadgeService badgeService;
     private final VisitService visitService;
     private final JsonWebToken jwt;
+    private final BadgeAssignmentService badgeAssignmentService;
 
-    public VisitResource(VisitService visitService, JsonWebToken jwt) {
+    public VisitResource(BadgeService badgeService, VisitService visitService, JsonWebToken jwt, BadgeAssignmentService badgeAssignmentService) {
+        this.badgeService = badgeService;
         this.visitService = visitService;
         this.jwt = jwt;
+        this.badgeAssignmentService = badgeAssignmentService;
     }
 
     @POST
@@ -52,11 +61,11 @@ public class VisitResource {
     }
 
     @GET
-    @RolesAllowed({"Admin", "Reqeuster", "Reception"})
+    @RolesAllowed({"Admin", "Requester", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getVisit(@QueryParam("id") Integer id) {
-        if(!jwt.getGroups().contains("Requester") && id == null)
+        if( id == null)
         {
             return Response.ok(visitService.getAllVisits()).build();
         }
@@ -71,5 +80,25 @@ public class VisitResource {
     public Response deleteVisit(@PathParam("id") Integer id) {
         boolean deleted = visitService.deleteVisit(id);
         return Response.ok(deleted).build();
+    }
+
+    @POST
+    @Path("/start_visit")
+    @RolesAllowed({"Admin", "Reception"})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response startVisit(CreatePersonRequest personRequest) {
+        Badge badge = badgeService.assignBadge(personRequest);
+        badgeAssignmentService.createBadgeAssignment(badge);
+        return Response.ok(badge).build();
+    }
+
+    @POST
+    @Path("/end_visit")
+    @RolesAllowed({"Admin", "Reception"})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response endVisit(CreateBadgeRequest badgeRequest) {
+        return Response.ok(badgeService.removeBadge(badgeRequest)).build();
     }
 }

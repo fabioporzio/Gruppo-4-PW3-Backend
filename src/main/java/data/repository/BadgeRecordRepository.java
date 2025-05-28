@@ -1,6 +1,8 @@
 package data.repository;
 
 import data.model.BadgeRecordHistory;
+import data.model.badgeRecord.BadgeRecord;
+import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.ws.rs.core.Context;
@@ -8,8 +10,7 @@ import jakarta.ws.rs.core.Context;
 import java.util.List;
 
 @ApplicationScoped
-public class BadgeRecordRepository {
-
+public class BadgeRecordRepository implements PanacheRepositoryBase<BadgeRecord, Integer> {
     @Context
     EntityManager em;
 
