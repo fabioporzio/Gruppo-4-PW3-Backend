@@ -28,12 +28,7 @@ public class ProfileResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getProfile() {
-        Object idClaim = jwtToken.getClaim("id");
-        int id = Integer.parseInt(idClaim.toString());
-
-        System.out.println("id: " + id);
-
-        return Response.ok(personService.getPersonById(id)).build();
+        return Response.ok(personService.getPersonById(Integer.parseInt(jwtToken.getClaim("id").toString()))).build();
     }
 
 }
