@@ -27,6 +27,15 @@ public class PersonService {
         this.roleRepository = roleRepository;
     }
 
+    public List<CreatePersonResponse> getAllPeople() {
+        List<Person> people = personRepository.findAll().list();
+        List<CreatePersonResponse> createPersonResponses = new ArrayList<>();
+        for (Person person : people) {
+            createPersonResponses.add(getCreatePersonResponse(person));
+        }
+        return createPersonResponses;
+    }
+
     public CreatePersonResponse getPersonById(int idPersona) {
         Person person = personRepository.findById(idPersona);
         if (person == null) {

@@ -9,6 +9,8 @@ import service.PersonService;
 import web.model.createPerson.CreatePersonRequest;
 import web.model.createPerson.CreatePersonResponse;
 
+import java.util.List;
+
 @Path("/people")
 @DenyAll
 public class PersonResource {
@@ -17,6 +19,13 @@ public class PersonResource {
 
     public PersonResource(PersonService personService) {
         this.personService = personService;
+    }
+
+    @GET
+    @RolesAllowed({"Admin", "Reception"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<CreatePersonResponse> getAllPeople() {
+        return personService.getAllPeople();
     }
 
     @GET
