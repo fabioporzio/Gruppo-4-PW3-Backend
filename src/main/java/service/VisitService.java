@@ -5,14 +5,15 @@ import data.model.Person.Person;
 import data.model.Visit;
 import data.repository.ItProvisionRepository;
 import data.repository.PersonRepository;
-import data.repository.UserRepository;
 import data.repository.VisitRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.core.Response;
 import web.VisitResource;
 import web.model.CreateVisitRequest;
+import web.model.VisitResponse;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -26,6 +27,17 @@ public class VisitService {
         this.visitRepository = visitRepository;
         this.personRepository = personRepository;
         this.itProvisionRepository = itProvisionRepository;
+    }
+
+    public List<VisitResponse> getVisitsByPersonAndDate(int idResponsabile, LocalDate fromDate, LocalDate toDate) {
+        List<VisitResponse> visitResponses = new ArrayList<>();
+        List<Visit> visits = visitRepository.getVisitsByPersonAndDate(idResponsabile, fromDate, toDate);
+
+        for (Visit visit : visits) {
+            VisitResponse visitResponse = getVisitResponse(visit);
+            visitResponses.add(visitResponse);
+        }
+        return visitResponses;
     }
 
     @Transactional
@@ -106,6 +118,22 @@ public class VisitService {
                 itProvision,
                 createVisitRequest.getVincolo(),
                 createVisitRequest.isFlagAccessoConAutomezzo()
+        );
+    }
+
+    public VisitResponse getVisitResponse(Visit visit) {
+        return new VisitResponse(
+                visit.getId(),
+                visit.getDataInizio(),
+                visit.getDataFine(),
+                visit.getOraInizio(),
+                visit.getOraFine(),
+                visit.getMotivo(),
+                visit.getPersonaVisitatore(),
+                visit.getResponsabile(),
+                visit.isFlagDPI(),
+                visit.getMaterialeInformatico(),
+                visit.isFlagAccessoConAutomezzo()
         );
     }
 }

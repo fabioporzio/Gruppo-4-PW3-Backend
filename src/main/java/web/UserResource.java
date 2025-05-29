@@ -1,6 +1,5 @@
 package web;
 
-import data.model.User.ApplicationUser;
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.*;
@@ -10,6 +9,8 @@ import service.UserService;
 import web.model.CreateUserRequest;
 import web.model.UserResponse;
 
+import java.util.List;
+
 @Path("/user")
 @DenyAll
 public class UserResource {
@@ -18,6 +19,13 @@ public class UserResource {
 
     public UserResource(final UserService userService) {
         this.userService = userService;
+    }
+
+    @GET
+    @RolesAllowed("Admin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<UserResponse> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @POST
