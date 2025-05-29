@@ -160,7 +160,8 @@ public class PersonService {
                 person.getDataScadenzaDoc(),
                 person.getGiorniScadenza(),
                 person.isFlagDocPrivacy(),
-                person.getDataConsegnaDocPrivacy()
+                person.getDataConsegnaDocPrivacy(),
+                person.getRuolo()
         );
     }
 

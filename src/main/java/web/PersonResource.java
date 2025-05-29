@@ -22,7 +22,7 @@ public class PersonResource {
     }
 
     @GET
-    @RolesAllowed({"Admin", "Reception"})
+    @RolesAllowed({"Admin", "Reception", "Requester"})
     @Produces(MediaType.APPLICATION_JSON)
     public List<CreatePersonResponse> getAllPeople() {
         return personService.getAllPeople();
