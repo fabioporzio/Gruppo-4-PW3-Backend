@@ -12,6 +12,8 @@ import web.UserResource;
 import web.model.CreateUserRequest;
 import web.model.UserResponse;
 
+import java.util.List;
+
 @ApplicationScoped
 public class UserService {
     private final UserRepository userRepository;
@@ -22,8 +24,14 @@ public class UserService {
         this.roleRepository = roleRepository;
     }
 
-
-
+    public List<UserResponse> getAllUsers() {
+        List<ApplicationUser> users = userRepository.findAll().list();
+        List<UserResponse> userResponses = new java.util.ArrayList<>();
+        for (ApplicationUser user : users) {
+            userResponses.add(toUserResponse(user));
+        }
+        return userResponses;
+    }
 
     @Transactional
     public UserResponse createUser(CreateUserRequest request) {
@@ -78,7 +86,6 @@ public class UserService {
         return new UserResponse(
                 user.getId(),
                 user.getEmail(),
-                user.getPassword(),
                 user.getRole()
         );
     }
