@@ -1,5 +1,6 @@
 package service;
 
+import data.model.Badge;
 import data.model.EmployeeContactList;
 import data.model.Person.Person;
 import data.model.Ruolo;
@@ -44,6 +45,10 @@ public class PersonService {
         return getCreatePersonResponse(person);
     }
 
+    public Person getPersonByVisit(int idVisit) {
+        return personRepository.findByVisit(idVisit);
+    }
+
     public List<EmployeeContactListResponse> getPhoneDirectory() {
         List<EmployeeContactListResponse> employeeContactListResponses = new ArrayList<>();
         List<EmployeeContactList> employeeContactList = personRepository.getPhoneDirectory();
@@ -66,6 +71,12 @@ public class PersonService {
     }
 
     @Transactional
+    public Person getPersonByBadge(Badge badge) {
+        System.out.println(badge.getId());
+        return personRepository.findByBadge(badge.getId());
+    }
+
+    @Transactional
     public Response updatePerson(int idPersona, CreatePersonRequest createPersonRequest) {
         Ruolo ruolo = roleRepository.findById(createPersonRequest.getIdRuolo());
         Person person = getPerson(createPersonRequest, ruolo);
@@ -76,6 +87,52 @@ public class PersonService {
         }
 
         throw new EntityNotFoundException();
+    }
+
+    public CreatePersonRequest fromPerson(Person person) {
+        return new CreatePersonRequest(
+                person.getIdRuna(),
+                person.getNome(),
+                person.getCognome(),
+                person.getDiminutivo(),
+                person.getAzienda(),
+                person.getIndirizzo(),
+                person.getCitta(),
+                person.getProvincia(),
+                person.getNazione(),
+                person.getTelefono(),
+                person.getCellulare(),
+                person.getFax(),
+                person.getpIva(),
+                person.getCf(),
+                person.getMail(),
+                person.getFoto(),
+                person.getDataAssunzione(),
+                person.getMatricola(),
+                person.getIdFiliale(),
+                person.getIdMansione(),
+                person.getIdDeposito(),
+                person.getIdRiferimento(),
+                person.getVisitatore(),
+                person.getAccessNumber(),
+                person.getAccessCount(),
+                person.getAccessUpdate(),
+                person.getLuogoNascita(),
+                person.getDataNascita(),
+                person.getDataScadCertificato(),
+                person.getPreposto(),
+                person.getAntincendio(),
+                person.getPrimoSoccorso(),
+                person.getTipoDocumento(),
+                person.getNumeroDocumento(),
+                person.getDataScadenzaDoc(),
+                person.getGiorniScadenza(),
+                person.getDuvri(),
+                person.getNumCentriCosto(),
+                person.isFlagDocPrivacy(),
+                person.getDataConsegnaDocPrivacy(),
+                person.getRuolo().getId()
+        );
     }
 
     private CreatePersonResponse getCreatePersonResponse(Person person) {

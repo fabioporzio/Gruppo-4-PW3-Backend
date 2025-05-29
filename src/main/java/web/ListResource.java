@@ -1,5 +1,9 @@
 package web;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfWriter;
 import data.model.Person.Person;
 import jakarta.annotation.security.DenyAll;
 import jakarta.annotation.security.RolesAllowed;
@@ -10,8 +14,11 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.StreamingOutput;
 import service.ListService;
 
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,4 +66,36 @@ public class ListResource {
 
         return Response.ok(mapPeopleInCompany).build();
     }
+
+    @GET
+    @Path("/pdf")
+    @Produces("application/pdf")
+    @RolesAllowed({"Admin", "Reception"})
+    public Response getPdf() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, baos);
+            document.open();
+            document.add(new Paragraph("PDF PERSONE PRESENTI"));
+            document.add(new Paragraph("Dipendenti: \n" + listService.getPeopleInCompany().toString() +
+                    "\n Visitatori: \n" + listService.getVisitorInCompany().toString() +
+                    "\n Manutentori: \n" + listService.getMaintenanceInCompany().toString()));
+            document.close();
+
+        } catch (DocumentException e) {
+            return Response.serverError().entity("Errore nella generazione PDF").build();
+        }
+
+        StreamingOutput stream = (OutputStream output) -> {
+            baos.writeTo(output);
+            output.flush();
+        };
+
+        return Response.ok(stream)
+                .header("Content-Disposition", "attachment; filename=\"documento.pdf\"")
+                .build();
+    }
+
 }

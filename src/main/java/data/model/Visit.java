@@ -17,13 +17,13 @@ public class Visit {
     @Column(name = "DataInizio", nullable = false)
     private LocalDate dataInizio;
 
-    @Column(name = "DataFine", nullable = false)
+    @Column(name = "DataFine", nullable = true)
     private LocalDate dataFine;
 
     @Column(name = "OraInizio", nullable = false)
     private LocalTime oraInizio;
 
-    @Column(name = "OraFine", nullable = false)
+    @Column(name = "OraFine", nullable = true)
     private LocalTime oraFine;
 
     @Column(name = "Motivo", columnDefinition = "text", nullable = false)

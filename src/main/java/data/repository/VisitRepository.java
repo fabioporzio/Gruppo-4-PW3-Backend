@@ -9,6 +9,7 @@ import jakarta.transaction.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -71,6 +72,17 @@ public class VisitRepository implements PanacheRepositoryBase<Visit, Integer> {
                         "FROM Visite\n" +
                         "WHERE DataInizio = CAST(GETDATE() AS DATE);", Visit.class)
                 .getResultList();
+    }
+
+    @Transactional
+    public boolean updateVisitToStart(Visit visit) {
+        int update = update("UPDATE Visit v " +
+                        "SET v.oraInizio = :oraInizio " +
+                        "WHERE v.id = :id",
+                Parameters.with("oraInizio", LocalTime.now())
+                        .and("id", visit.getId())
+        );
+        return update == 1;
     }
 
     @Transactional

@@ -108,22 +108,20 @@ public class VisitResource {
     }
 
     @POST
-    @Path("/start_visit")
+    @Path("/start_visit/{id}")
     @RolesAllowed({"Admin", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response startVisit(CreatePersonRequest personRequest) {
-        Badge badge = badgeService.assignBadge(personRequest);
-        badgeAssignmentService.createBadgeAssignment(badge);
-        return Response.ok(badge).build();
+    public Response startVisit(@PathParam("id") int idVisita) {
+        Visit visit = badgeService.assignBadge(idVisita);
+        return Response.ok(visit).build();
     }
 
     @POST
-    @Path("/end_visit")
+    @Path("/end_visit/{id}")
     @RolesAllowed({"Admin", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response endVisit(CreateBadgeRequest badgeRequest) {
-        return Response.ok(badgeService.removeBadge(badgeRequest)).build();
+    public Response endVisit(@PathParam("id") int idVisita) {
+        Visit visit = badgeService.removeBadge(idVisita);
+        return Response.ok(visit).build();
     }
 }
