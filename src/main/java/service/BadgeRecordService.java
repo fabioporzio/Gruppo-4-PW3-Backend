@@ -1,12 +1,10 @@
 package service;
 
 import data.model.Badge;
-import data.model.BadgeAssignment;
 import data.model.BadgeReader;
 import data.model.BadgeRecordHistory;
 import data.model.Person.Person;
 import data.model.badgeRecord.BadgeRecord;
-import data.repository.BadgeAssignmentRepository;
 import data.repository.BadgeReaderRepository;
 import data.repository.BadgeRecordRepository;
 import data.repository.PersonRepository;
@@ -32,10 +30,20 @@ public class BadgeRecordService {
         this.badgeReaderRepository = badgeAssignmentRepository;
     }
 
-
     public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForSmEmployees() {
         List<BadgeRecordHistoryResponse> badgeRecordHistoryResponses = new ArrayList<>();
         List<BadgeRecordHistory> badgeRecordHistory = badgeRecordRepository.getBadgeRecordHistoryForSmEmployees();
+
+        for (BadgeRecordHistory badgeRecordHistoryElement : badgeRecordHistory) {
+            BadgeRecordHistoryResponse badgeRecordHistoryResponse = getBadgeRecordHistoryResponse(badgeRecordHistoryElement);
+            badgeRecordHistoryResponses.add(badgeRecordHistoryResponse);
+        }
+        return badgeRecordHistoryResponses;
+    }
+
+    public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForSmEmployeesByDate(LocalDate inputDate) {
+        List<BadgeRecordHistoryResponse> badgeRecordHistoryResponses = new ArrayList<>();
+        List<BadgeRecordHistory> badgeRecordHistory = badgeRecordRepository.getBadgeRecordHistoryForSmEmployeesByDate(inputDate);
 
         for (BadgeRecordHistory badgeRecordHistoryElement : badgeRecordHistory) {
             BadgeRecordHistoryResponse badgeRecordHistoryResponse = getBadgeRecordHistoryResponse(badgeRecordHistoryElement);

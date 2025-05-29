@@ -5,11 +5,13 @@ import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import service.BadgeRecordService;
 import web.model.BadgeRecordHistoryResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Path("/badge-record-history")
@@ -26,8 +28,19 @@ public class BadgeRecordHistoryResource {
     @Path("/secondo-mona")
     @RolesAllowed({"Admin", "Reception"})
     @Produces(MediaType.APPLICATION_JSON)
-    public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForSmEmployees() {
+    public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForSmEmployees(
+    ) {
         return badgeRecordService.getBadgeRecordHistoryForSmEmployees();
+    }
+
+    @GET
+    @Path("/secondo-mona/{date}")
+    @RolesAllowed({"Admin", "Reception"})
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<BadgeRecordHistoryResponse> getBadgeRecordHistoryForSmEmployeesByDate(
+            @PathParam("date") LocalDate date
+    ) {
+        return badgeRecordService.getBadgeRecordHistoryForSmEmployeesByDate(date);
     }
 
     @GET
