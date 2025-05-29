@@ -1,18 +1,41 @@
 package data.repository;
 
-import data.model.ItProvision;
 import data.model.Person.Person;
 import data.model.Visit;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
-import web.model.CreateVisitRequest;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
 public class VisitRepository implements PanacheRepositoryBase<Visit, Integer> {
+
+    private final PersonRepository personRepository;
+
+    public VisitRepository(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
+
+    public List<Visit> getVisitsByPersonAndDate(int idResponsabile, LocalDate fromDate, LocalDate toDate) {
+        Person responsabile = personRepository.findById(idResponsabile);
+        if (responsabile == null) {
+            return null;
+        }
+
+        return find(
+                "SELECT v " +
+                        "FROM Visit v " +
+                        "INNER JOIN Person p ON p.id = v.responsabile.idPersona " +
+                        "WHERE p.idPersona = :idPersona AND (v.dataInizio >= :dataInizio AND v.dataFine <= :dataFine)",
+                Parameters.with("idPersona", responsabile.getIdPersona())
+                        .and("dataInizio", fromDate)
+                        .and("dataFine", toDate)
+        ).list();
+    }
 
     public List<Visit> findByPerson(int id) {
         return getEntityManager()

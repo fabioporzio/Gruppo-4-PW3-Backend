@@ -15,7 +15,11 @@ import service.BadgeService;
 import service.VisitService;
 import web.model.CreateBadgeRequest;
 import web.model.CreateVisitRequest;
+import web.model.VisitResponse;
 import web.model.createPerson.CreatePersonRequest;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Path("/visit")
 @DenyAll
@@ -70,6 +74,23 @@ public class VisitResource {
             return Response.ok(visitService.getAllVisits()).build();
         }
         return Response.ok(visitService.getVisitsByPerson(id)).build();
+    }
+
+    @GET
+    @Path("/by-date/{idResponsabile}")
+    @RolesAllowed({"Admin", "Requester", "Reception"})
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public List<VisitResponse> getVisitsByPersonAndDate(
+            @PathParam("idResponsabile") int idResponsabile,
+            @QueryParam("fromDate") LocalDate fromDate
+    ) {
+        if (fromDate == null) {
+            fromDate = LocalDate.now();
+        }
+        LocalDate toDate = LocalDate.now().plusDays(7);
+
+        return visitService.getVisitsByPersonAndDate(idResponsabile, fromDate, toDate);
     }
 
     @DELETE
