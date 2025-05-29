@@ -11,6 +11,7 @@ import data.repository.BadgeReaderRepository;
 import data.repository.BadgeRecordRepository;
 import data.repository.PersonRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.transaction.Transactional;
 import web.model.BadgeRecordHistoryResponse;
 import web.model.CreateBadgeRequest;
 
@@ -83,14 +84,24 @@ public class BadgeRecordService {
         );
     }
 
+    @Transactional
     public void entryStamp(Badge request) {
-        Person persona = personRepository.findById(request.getPersona().getIdPersona());
-
         BadgeRecord badgeRecord = new BadgeRecord();
         badgeRecord.setBadge(request);
         badgeRecord.setData(LocalDate.now());
         badgeRecord.setOra(LocalTime.now());
         BadgeReader badgeReader =  badgeReaderRepository.findById(1);
+        badgeRecord.setTimbratrice(badgeReader);
+        badgeRecordRepository.persist(badgeRecord);
+    }
+
+    @Transactional
+    public void outStamp(Badge request) {
+        BadgeRecord badgeRecord = new BadgeRecord();
+        badgeRecord.setBadge(request);
+        badgeRecord.setData(LocalDate.now());
+        badgeRecord.setOra(LocalTime.now());
+        BadgeReader badgeReader =  badgeReaderRepository.findById(5);
         badgeRecord.setTimbratrice(badgeReader);
         badgeRecordRepository.persist(badgeRecord);
     }

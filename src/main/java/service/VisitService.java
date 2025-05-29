@@ -45,6 +45,11 @@ public class VisitService {
     }
 
     @Transactional
+    public boolean updateVisitToStart(Visit visit){
+        return visitRepository.updateVisitToStart(visit);
+    }
+
+    @Transactional
     public Visit updateVisit(int idVisit, CreateVisitRequest createVisitRequest) {
         Person visitatore = personRepository.findByNameAndSurname(createVisitRequest.getNomeVisitatore(), createVisitRequest.getCognomeVisitatore());
         Person responsabileVisita = personRepository.findByEmail(createVisitRequest.getEmailResponsabileVisita());
@@ -61,6 +66,10 @@ public class VisitService {
         else {
             return null;
         }
+    }
+
+    public Visit getVisitById(int idVisit) {
+        return visitRepository.findById(idVisit);
     }
 
     @Transactional

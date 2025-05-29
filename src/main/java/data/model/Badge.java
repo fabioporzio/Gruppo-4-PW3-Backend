@@ -15,7 +15,7 @@ public class Badge {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "IdPersona", nullable = false)
+    @JoinColumn(name = "IdPersona")
     private Person persona;
 
     @Column(name = "IdCategoria")
@@ -30,10 +30,10 @@ public class Badge {
     @Column(name = "Abilitata", nullable = false)
     private boolean abilitata;
 
-    @Column(name = "DataInizio", nullable = false)
+    @Column(name = "DataInizio")
     private LocalDate dataInizio;
 
-    @Column(name = "Datafine", nullable = false)
+    @Column(name = "Datafine")
     private LocalDate dataFine;
 
     @Column(name = "ConScadenza", nullable = false)
@@ -48,7 +48,7 @@ public class Badge {
     @Column(name = "RegPresenza", columnDefinition = "nchar(100)")
     private String regPresenza;
 
-    @Column(name = "DataRestituzione", nullable = false)
+    @Column(name = "DataRestituzione")
     private LocalDate dataRestituzione;
 
     @Column(name = "IdRestituzione")

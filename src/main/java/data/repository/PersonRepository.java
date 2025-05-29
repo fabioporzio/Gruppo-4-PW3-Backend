@@ -17,6 +17,26 @@ public class PersonRepository implements PanacheRepositoryBase<Person, Integer> 
     @Context
     EntityManager em;
 
+    public Person findByVisit(int idVisit) {
+        return getEntityManager()
+                .createQuery("SELECT p " +
+                        "FROM Person p " +
+                        "INNER JOIN Visit v ON v.personaVisitatore.id = p.id " +
+                        "WHERE v.id = :idVisit", Person.class)
+                .setParameter("idVisit", idVisit)
+                .getSingleResult();
+    }
+
+    public Person findByBadge(int idBadge) {
+        return getEntityManager()
+                .createQuery("SELECT p " +
+                        "FROM Person p " +
+                        "INNER JOIN Badge b ON b.persona.id = p.id " +
+                        "WHERE b.id = :idBadge", Person.class)
+                .setParameter("idBadge", idBadge)
+                .getSingleResult();
+    }
+
     public List<Person> findPeopleSMInCompany() {
         return getEntityManager().createNativeQuery(
                         "SELECT p.* FROM Timbrature t " +
@@ -163,7 +183,7 @@ public class PersonRepository implements PanacheRepositoryBase<Person, Integer> 
                         .and("numCentriCosto", person.getNumCentriCosto())
                         .and("flagDocPrivacy", person.isFlagDocPrivacy())
                         .and("dataConsegnaDocPrivacy", person.getDataConsegnaDocPrivacy())
-                        .and("id", idPersona )
+                        .and("id", idPersona)
         );
         person.setIdPersona(idPersona);
         return update > 0;

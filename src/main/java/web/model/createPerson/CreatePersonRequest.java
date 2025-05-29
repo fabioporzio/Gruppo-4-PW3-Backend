@@ -1,12 +1,9 @@
 package web.model.createPerson;
 
-import data.model.BadgeAssignment;
 import data.model.Person.DocumentType;
-import data.model.Ruolo;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 public class CreatePersonRequest {
     private Integer idRuna;
