@@ -87,10 +87,14 @@ public class VisitResource {
     ) {
         if (fromDate == null) {
             fromDate = LocalDate.now();
-        }
-        LocalDate toDate = LocalDate.now().plusDays(7);
 
-        return visitService.getVisitsByPersonAndDate(idResponsabile, fromDate, toDate);
+            LocalDate toDate = LocalDate.now().plusDays(7);
+            return visitService.getVisitsByPersonAndBetweenDates(idResponsabile, fromDate, toDate);
+        }
+        else {
+            return visitService.getVisitsByPersonAndByDate(idResponsabile, fromDate);
+        }
+
     }
 
     @DELETE

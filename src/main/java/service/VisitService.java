@@ -29,9 +29,20 @@ public class VisitService {
         this.itProvisionRepository = itProvisionRepository;
     }
 
-    public List<VisitResponse> getVisitsByPersonAndDate(int idResponsabile, LocalDate fromDate, LocalDate toDate) {
+    public List<VisitResponse> getVisitsByPersonAndByDate(int idResponsabile, LocalDate fromDate) {
         List<VisitResponse> visitResponses = new ArrayList<>();
-        List<Visit> visits = visitRepository.getVisitsByPersonAndDate(idResponsabile, fromDate, toDate);
+        List<Visit> visits = visitRepository.getVisitsByPersonAndByDate(idResponsabile, fromDate);
+
+        for (Visit visit : visits) {
+            VisitResponse visitResponse = getVisitResponse(visit);
+            visitResponses.add(visitResponse);
+        }
+        return visitResponses;
+    }
+
+    public List<VisitResponse> getVisitsByPersonAndBetweenDates(int idResponsabile, LocalDate fromDate, LocalDate toDate) {
+        List<VisitResponse> visitResponses = new ArrayList<>();
+        List<Visit> visits = visitRepository.getVisitsByPersonAndBetweenDates(idResponsabile, fromDate, toDate);
 
         for (Visit visit : visits) {
             VisitResponse visitResponse = getVisitResponse(visit);

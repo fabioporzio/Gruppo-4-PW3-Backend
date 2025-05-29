@@ -20,7 +20,22 @@ public class VisitRepository implements PanacheRepositoryBase<Visit, Integer> {
         this.personRepository = personRepository;
     }
 
-    public List<Visit> getVisitsByPersonAndDate(int idResponsabile, LocalDate fromDate, LocalDate toDate) {
+    public List<Visit> getVisitsByPersonAndByDate(int idResponsabile, LocalDate fromDate) {
+        Person responsabile = personRepository.findById(idResponsabile);
+        if (responsabile == null) {
+            return null;
+        }
+        return find(
+                "SELECT v " +
+                        "FROM Visit v " +
+                        "INNER JOIN Person p ON p.id = v.responsabile.idPersona " +
+                        "WHERE p.idPersona = :idPersona AND v.dataInizio = :dataInizio",
+                Parameters.with("idPersona", responsabile.getIdPersona())
+                        .and("dataInizio", fromDate)
+        ).list();
+    }
+
+    public List<Visit> getVisitsByPersonAndBetweenDates(int idResponsabile, LocalDate fromDate, LocalDate toDate) {
         Person responsabile = personRepository.findById(idResponsabile);
         if (responsabile == null) {
             return null;
@@ -30,7 +45,7 @@ public class VisitRepository implements PanacheRepositoryBase<Visit, Integer> {
                 "SELECT v " +
                         "FROM Visit v " +
                         "INNER JOIN Person p ON p.id = v.responsabile.idPersona " +
-                        "WHERE p.idPersona = :idPersona AND (v.dataInizio >= :dataInizio AND v.dataFine <= :dataFine)",
+                        "WHERE p.idPersona = :idPersona AND (v.dataInizio >= :dataInizio AND v.dataInizio <= :dataFine)",
                 Parameters.with("idPersona", responsabile.getIdPersona())
                         .and("dataInizio", fromDate)
                         .and("dataFine", toDate)
