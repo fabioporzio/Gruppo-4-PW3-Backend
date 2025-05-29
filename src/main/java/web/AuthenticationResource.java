@@ -71,7 +71,7 @@ public class AuthenticationResource {
                 .groups(Set.of(user.getRole(), "access_token"))
                 .claim(Claims.nickname.name(), user.getEmail())
                 .claim("id", id)
-                .expiresIn(Duration.ofMinutes(1))
+                .expiresIn(Duration.ofMinutes(10))
                 .issuedAt(Instant.now())
                 .sign();
         return token;
