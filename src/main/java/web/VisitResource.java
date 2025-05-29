@@ -38,7 +38,7 @@ public class VisitResource {
     }
 
     @POST
-    @RolesAllowed({"Admin", "Reqeuster"})
+    @RolesAllowed({"Admin", "Requester"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addVisit(CreateVisitRequest createVisitRequest) {
@@ -52,7 +52,7 @@ public class VisitResource {
 
     @PUT
     @Path("/{idVisita}")
-    @RolesAllowed({"Admin", "Reqeuster"})
+    @RolesAllowed({"Admin", "Requester"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateVisit(@PathParam("idVisita") int idVisita, CreateVisitRequest createVisitRequest) {

@@ -8,7 +8,6 @@ import data.repository.PersonRepository;
 import data.repository.VisitRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
-import web.VisitResource;
 import web.model.CreateVisitRequest;
 import web.model.VisitResponse;
 
@@ -53,12 +52,11 @@ public class VisitService {
 
     @Transactional
     public Visit addVisit(CreateVisitRequest createVisitRequest) {
-        Person visitatore = personRepository.findByNameAndSurname(createVisitRequest.getNomeVisitatore(), createVisitRequest.getCognomeVisitatore());
-        Person responsabileVisita = personRepository.findByEmail(createVisitRequest.getEmailResponsabileVisita());
-        System.out.println(responsabileVisita);
+        Person visitatore = personRepository.findById((createVisitRequest.getIdVisitatore()));
+        Person responsabile = personRepository.findById((createVisitRequest.getIdResponsabile()));
         ItProvision itProvision = itProvisionRepository.findById(createVisitRequest.getIdMaterialeInformatico());
 
-        Visit visit = getVisit(createVisitRequest, visitatore, responsabileVisita, itProvision);
+        Visit visit = getVisit(createVisitRequest, visitatore, responsabile, itProvision);
         if (visit == null) {
             return null;
         }
@@ -74,10 +72,10 @@ public class VisitService {
 
     @Transactional
     public Visit updateVisit(int idVisit, CreateVisitRequest createVisitRequest) {
-        Person visitatore = personRepository.findByNameAndSurname(createVisitRequest.getNomeVisitatore(), createVisitRequest.getCognomeVisitatore());
-        Person responsabileVisita = personRepository.findByEmail(createVisitRequest.getEmailResponsabileVisita());
+        Person visitatore = personRepository.findById(createVisitRequest.getIdVisitatore());
+        Person responsabile = personRepository.findById(createVisitRequest.getIdResponsabile());
         ItProvision itProvision = itProvisionRepository.findById(createVisitRequest.getIdMaterialeInformatico());
-        Visit visit = getVisit(createVisitRequest, visitatore, responsabileVisita, itProvision);
+        Visit visit = getVisit(createVisitRequest, visitatore, responsabile, itProvision);
         if (visit == null) {
             return null;
         }
