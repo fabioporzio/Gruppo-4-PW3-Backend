@@ -72,11 +72,6 @@ public class ListResource {
     @Produces("application/pdf")
     @RolesAllowed({"Admin", "Reception"})
     public Response getPdf() {
-        Map<String, List<Person>> mapPeopleInCompany = new HashMap<>();
-
-        mapPeopleInCompany.put("Employees", listService.getPeopleInCompany());
-        mapPeopleInCompany.put("Visitors", listService.getVisitorInCompany());
-        mapPeopleInCompany.put("Maintenance", listService.getMaintenanceInCompany());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
