@@ -2,6 +2,7 @@ package service;
 
 import data.model.Badge;
 import data.model.Person.Person;
+import data.model.Status;
 import data.model.Visit;
 import data.repository.BadgeRepository;
 import data.repository.VisitRepository;
@@ -42,6 +43,7 @@ public class BadgeService {
         Visit visit = visitService.getVisitById(idVisita);
         visit.setDataInizio(LocalDate.now());
         visit.setOraInizio(LocalTime.now());
+        visit.setStatus(Status.valueOf("Iniziata"));
         badgeRecordService.entryStamp(badge);
         return visit;
     }
@@ -57,6 +59,7 @@ public class BadgeService {
         Visit visit = visitService.getVisitById(idVisita);
         visit.setDataFine(LocalDate.now());
         visit.setOraFine(LocalTime.now());
+        visit.setStatus(Status.valueOf("Finita"));
         badgeRecordService.outStamp(badge);
         return visit;
     }

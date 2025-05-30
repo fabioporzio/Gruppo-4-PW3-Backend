@@ -45,6 +45,18 @@ public class PersonService {
         return getCreatePersonResponse(person);
     }
 
+    public boolean deletePersonById(int idPersona) {
+        return personRepository.deleteById(idPersona);
+    }
+
+    public CreatePersonResponse getPersonByUser(int idUser) {
+        Person person = personRepository.findByUserId(idUser);
+        if (person == null) {
+            return null;
+        }
+        return getCreatePersonResponse(person);
+    }
+
     public Person getPersonByVisit(int idVisit) {
         return personRepository.findByVisit(idVisit);
     }

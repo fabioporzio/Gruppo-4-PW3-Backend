@@ -50,6 +50,10 @@ public class Visit {
     @Column(name = "FlagAccessoConAutomezzo", nullable = false)
     private boolean flagAccessoConAutomezzo;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Stauts", length = 100)
+    private Status status;
+
     public Visit() {}
 
     public Visit(LocalDate dataInizio, LocalDate dataFine, LocalTime oraInizio, LocalTime oraFine, String motivo, Person personaVisitatore, Person responsabile, boolean flagDPI, ItProvision materialeInformatico, Boolean vincolo, boolean flagAccessoConAutomezzo) {
@@ -160,6 +164,14 @@ public class Visit {
 
     public void setFlagAccessoConAutomezzo(boolean flagAccessoConAutomezzo) {
         this.flagAccessoConAutomezzo = flagAccessoConAutomezzo;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
 
