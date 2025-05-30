@@ -17,6 +17,16 @@ public class PersonRepository implements PanacheRepositoryBase<Person, Integer> 
     @Context
     EntityManager em;
 
+    public Person findByUserId(Integer userId) {
+        return (Person) getEntityManager()
+                .createQuery("SELECT p " +
+                "FROM Person p " +
+                "INNER JOIN ApplicationUser u ON u.email = p.mail " +
+                "WHERE u.id = :id")
+                .setParameter("id", userId)
+                .getSingleResult();
+    }
+
     public Person findByVisit(int idVisit) {
         return getEntityManager()
                 .createQuery("SELECT p " +
