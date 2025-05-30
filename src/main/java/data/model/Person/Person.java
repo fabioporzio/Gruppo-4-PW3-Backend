@@ -1,6 +1,7 @@
 package data.model.Person;
 
 import data.model.Ruolo;
+import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -155,7 +156,7 @@ public class Person {
         this.cellulare = cellulare;
         this.fax = fax;
         this.pIva = pIva;
-        this.cf = cf;
+        this.cf = BcryptUtil.bcryptHash(cf);
         this.mail = mail;
         this.foto = foto;
         this.dataAssunzione = dataAssunzione;
@@ -175,7 +176,7 @@ public class Person {
         this.antincendio = antincendio;
         this.primoSoccorso = primoSoccorso;
         this.tipoDocumento = tipoDocumento;
-        this.numeroDocumento = numeroDocumento;
+        this.numeroDocumento = BcryptUtil.bcryptHash(numeroDocumento);
         this.dataScadenzaDoc = dataScadenzaDoc;
         this.giorniScadenza = giorniScadenza;
         this.duvri = duvri;
@@ -302,7 +303,7 @@ public class Person {
     }
 
     public void setCf(String cf) {
-        this.cf = cf;
+        this.cf = BcryptUtil.bcryptHash(cf);
     }
 
     public String getMail() {
@@ -462,7 +463,7 @@ public class Person {
     }
 
     public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
+        this.numeroDocumento = BcryptUtil.bcryptHash(numeroDocumento);
     }
 
     public LocalDate getDataScadenzaDoc() {
