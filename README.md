@@ -59,15 +59,17 @@ http://localhost:8080
 
 ## Project Structure
 
-src/
-└── main/
-├── java/
-│   └── data/
-│       ├── model/            # Mapping of DB's tables
-│       └── repository/       # Query to connect with the DB
-│   └── service/              # Connects DB with web responses and viceversa
-│   └── web/
-│       ├── model/            # Web-specific models
-│       └── resources/        # REST API endpoints
-└── resources/
-└── application.properties  # App configuration
+<pre>
+    src/
+    └── main/
+    ├── java/
+    │   └── data/
+    │       ├── model/            # Mapping of DB's tables
+    │       └── repository/       # Query to connect with the DB
+    │   └── service/              # Connects DB with web responses and viceversa
+    │   └── web/
+    │       ├── model/            # Web-specific models
+    │       └── resources/        # REST API endpoints
+    └── resources/
+    └── application.properties  # App configuration
+</pre>
